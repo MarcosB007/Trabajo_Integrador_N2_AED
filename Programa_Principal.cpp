@@ -2,17 +2,56 @@
 #include<stdlib.h>
 #include<string.h>
 
+typedef char cadena[50];
+
+struct Usuarios{
+	char Apellido_Y_Nombre[60];
+	char nomUsuario[10];
+	char contrasenia[10];
+};
+
 int MenuPrincipal();
 int MenuConsultorio();
 int MenuAsistente();
 int MenuAdministracion();
+void registrar(FILE *usuario);
+
+bool verificar = false;
 
 main()
 {
+	FILE *usuarios = fopen("Usuarios.dat","a+b");
+	char lectura;
+	cadena nombreUsuario, contr;
+	
+	//verifica si ya hay un usuario registrado
+	fread(&lectura, sizeof(lectura), 1, usuarios);
+	while(!feof(usuarios)){
+		
+		verificar = true;
+		
+		fread(&lectura, sizeof(lectura), 1, usuarios);
+	}
+	//caso contrario, permite cargar un usuario
+	if(verificar == false){
+		registrar(usuarios);
+	}
+	else{
+		printf("\nINICIO DE SESION\n");
+		printf("\nNmbre de usuario: ");
+		_flushall();
+		gets(nombreUsuario);
+		//comprobar nombre de usuario
+		printf("\nContraseña: ");
+		gets(contr);
+		//comprobar contraseña
+	}
+	
 	
 	int opcion;
 	int opc;
-	
+	if(verificar == true){
+
 	do{
 	
 		opcion = MenuPrincipal();
@@ -30,8 +69,7 @@ main()
 			 	   		
 			 	   		case 3:
 			 	   		break;
-   			   		   //agregar llamado a las correspondientes funciones
-						}
+   			   			}
 				 	}while(opc =! 4);
 			break;
 			
@@ -82,6 +120,8 @@ main()
 		
 	}while(opcion !=4);
 	
+	}
+	fclose(usuarios);
 	system("\n\npause");
 }
 
@@ -134,5 +174,41 @@ int MenuAdministracion(){
 	return opc;
 	
 }
+
+void registrar(FILE *usuario){
+	
+	Usuarios admin;
+		
+	printf("\nREGISTRARSE\n");
+	printf("\nNombre y Apellido: ");
+	_flushall();
+	gets(admin.Apellido_Y_Nombre);
+	
+	printf("\nNombre de Usuario: ");
+	printf("\nAVISOS IMPORTANTES!\n");
+	printf("\nEl nombre de usuario debe tener entre 6 y 10 caracteres");
+	printf("\nDebe comenzar con una letra minuscula");
+	printf("\nTener al menos 2 letras mayusculas");
+	printf("\nTener como maximo 3 digitos");
+	printf("\nIngrese su nombre de usuario: ");
+	gets(admin.nomUsuario);
+	//validar las restricciones
+	
+	printf("\nContraseña: ");
+	printf("\nAVISOS IMPORTANTES!\n");
+	printf("\nDeberá contener al menos una letra mayúscula, una letra minúscula y un número");
+	printf("\nNo podrá contener ningún carácter de puntuación, ni acentos, ni espacios. Sólo caracteres alfanuméricos. ");
+	printf("\nDeberá tener entre 6 y 32 caracteres.");
+	printf("\nNo debe tener más de 3 caracteres numéricos consecutivos.");
+	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabéticamente consecutivas (ascendentemente).");
+	gets(admin.contrasenia);
+	//validar restricciones
+	fwrite(&admin, sizeof(admin), 1, usuario);
+}
+
+
+
+
+
 
 
