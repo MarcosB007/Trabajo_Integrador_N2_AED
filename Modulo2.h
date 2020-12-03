@@ -1,5 +1,4 @@
 
-
 typedef char cadena [45];
 
 struct fecha{
@@ -28,13 +27,13 @@ struct Datosmascota{
  };
 
 
-char dibujarMenu();
-void cargarArchivo(FILE *arch);
+//char dibujarMenu();
+void cargar(FILE *arch);
 void cargaTurnos(FILE *arch);
 
 
 
-  FILE *Mascotas = fopen("Marcostas.dat","a+b");
+  /*FILE *Mascotas = fopen("Marcostas.dat","a+b");
   FILE *Turnos = fopen("Turnos.dat", "a+");
   
   
@@ -74,7 +73,7 @@ void cargaTurnos(FILE *arch);
 	_flushall();
 	scanf("%c", &opc);
 	return opc;
-}
+}*/
 
 
 

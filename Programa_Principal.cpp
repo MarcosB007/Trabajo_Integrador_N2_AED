@@ -32,24 +32,47 @@ main()
 		
 		fread(&lectura, sizeof(lectura), 1, usuarios);
 	}
-	//caso contrario, permite cargar un usuario
+	//caso que no exista ningun usuario, permite cargar uno
 	if(verificar == false){
 		registrar(usuarios);
 	}
-	else{
+	system("cls");
+	
+	do{
 		printf("\nINICIO DE SESION\n");
 		printf("\nNmbre de usuario: ");
 		_flushall();
 		gets(nombreUsuario);
-		//comprobar nombre de usuario
-		printf("\nContraseña: ");
-		gets(contr);
-		//comprobar contraseña
-	}
+		
+		Usuarios lect;
+			   				
+		fread(&lect, sizeof(lect), 1, usuarios);
+			   				
+		while(!feof(usuarios)){
+			   					
+			if(strcmp(nombreUsuario, lect.nomUsuario) == 0){
+				verificar = true;
+				break;
+			}
+			
+			fread(&lect, sizeof(lect), 1, usuarios);
+		}
+		if(verificar == false){
+			printf("Nombre de usuario incorrecto.");
+		}
+	}while(verificar == false);
+	
+		
+	//comprobar nombre de usuario
+	//printf("\nContraseña: ");
+	//gets(contr);
+	//comprobar contraseña
+	
 	
 	
 	int opcion;
 	int opc;
+	
 	if(verificar == true){
 
 	do{
@@ -121,6 +144,10 @@ main()
 	}while(opcion !=4);
 	
 	}
+	else{
+		printf("Nombre de usuario o contraseña incorrecta.");
+	}
+	
 	fclose(usuarios);
 	system("\n\npause");
 }
@@ -128,9 +155,10 @@ main()
 int MenuPrincipal(){
 	system("cls");
 	int opc;
-	printf("1 --> MODULO CONSULTORIO\n");
-	printf("2 --> MODULO DEL ASISTENTE\n");
-	printf("3 --> MODULO DE ADMINISTRACION\n");
+	printf("1.- MODULO CONSULTORIO\n");
+	printf("2.- MODULO DEL ASISTENTE\n");
+	printf("3.- MODULO DE ADMINISTRACION\n");
+	printf("4.- SALIR");
 	scanf("%d", &opc);
 	return opc;
 }
@@ -177,7 +205,7 @@ int MenuAdministracion(){
 
 void registrar(FILE *usuario){
 	
-	Usuarios admin;
+	Usuarios admin, lectura;;
 	int longitud, contadorMayus=0, contadorNum=0;
 	bool bandera = false;
 		
@@ -203,7 +231,7 @@ void registrar(FILE *usuario){
 			if(admin.nomUsuario[0] > 97 && admin.nomUsuario[0] < 123){
 			
 				for(int i=0; i<strlen(admin.nomUsuario); i++){
-					printf("%c", admin.nomUsuario[i]);
+					//printf("%c", admin.nomUsuario[i]);
 				
 					if(admin.nomUsuario[i] > 64 && admin.nomUsuario[i] < 91){
 					contadorMayus+=1;
@@ -212,7 +240,7 @@ void registrar(FILE *usuario){
 			
 					if(contadorMayus > 1){
 						for(int i=0; i<strlen(admin.nomUsuario); i++){
-							printf("%c", admin.nomUsuario[i]);
+							//printf("%c", admin.nomUsuario[i]);
 				
 			 				if(admin.nomUsuario[i] > 47 && admin.nomUsuario[i] < 58){
 			   					contadorNum+=1;
@@ -220,30 +248,43 @@ void registrar(FILE *usuario){
 						}
 						
 						if(contadorNum < 4){
-			   				bandera = true;  
-			   				//validar que no exista un usuario igual
+			   			    bandera = true;
+			   				
+			   				rewind(usuario);
+			   				fread(&lectura, sizeof(lectura), 1, usuario);
+			   				
+			   				while(!feof(usuario)){
+			   					
+			   					if(strcmp(admin.nomUsuario, lectura.nomUsuario) == 0){
+			   						bandera = false;
+								}
+									
+			   					fread(&lectura, sizeof(lectura), 1, usuario);
+							}
+			   				//valida que no exista un usuario igual
 						}
 					}
 			}
 		}
-		if(bandera = false){
+		if(bandera == false){
 			printf("\nEl nombre de usuario ingresado no cumple con alguna de las condiciones dadas.");
 			printf("\nVuelva a intentar.");
 		}
-	}while(bandera = false);
+	}while(bandera == false);
 	
 	//validar las restricciones
 	
-	printf("\nContraseña: ");
+	/*printf("\nContrasenia: ");
 	printf("\nAVISOS IMPORTANTES!\n");
-	printf("\nDeberá contener al menos una letra mayúscula, una letra minúscula y un número");
-	printf("\nNo podrá contener ningún carácter de puntuación, ni acentos, ni espacios. Sólo caracteres alfanuméricos. ");
-	printf("\nDeberá tener entre 6 y 32 caracteres.");
-	printf("\nNo debe tener más de 3 caracteres numéricos consecutivos.");
-	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabéticamente consecutivas (ascendentemente).");
+	printf("\nDebera contener al menos una letra mayuscula, una letra minuscula y un numero");
+	printf("\nNo podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
+	printf("\nDebera tener entre 6 y 32 caracteres.");
+	printf("\nNo debe tener más de 3 caracteres numericos consecutivos.");
+	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas (ascendentemente).");
 	gets(admin.contrasenia);
 	//validar restricciones
-	fwrite(&admin, sizeof(admin), 1, usuario);
+	fwrite(&admin, sizeof(admin), 1, usuario);*/
+	fwrite(&lectura, sizeof(lectura), 1, usuario);
 }
 
 
