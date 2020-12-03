@@ -108,16 +108,13 @@ void cargaTurnos(FILE *arch);
 	fwrite (&Dm, sizeof (Dm), 1, arch);
 		
 }
-void cargaTurnos(FILE *arch){
-	turnos T;
-	
+void cargaTurnos(FILE *Turnos){
+	Turnos T;
+	FILE *Turnos = fopen("Turnos.dat", "r");
+	int resp=0,i;
 	printf("\n\t**************************************************************");
 	printf("\n\t Registro de Turnos");
 	printf("\n\t**************************************************************");
-	printf("Ingrese la matricula del veterinario");
-	scanf("%s" &T.MatriculaVet);
-	printf("Ingrese el DNI del Dueño:");
-	scanf("%d", &T.DNI_dueno);
 	printf("Ingrese la fecha del turno");
 	printf("Ingrese el dia:\n");
 	scanf("%d", &T.f_turnos.dia);
@@ -125,10 +122,37 @@ void cargaTurnos(FILE *arch){
 	scanf("%d", &T.f_turnos.mes);
 	printf("Ingrese el año:\n");
 	scanf("%d", &T.f_turnos.anio);
-	printf("Detalle la razon del turno:\n");
-	scanf("%s"&T.detalleAtencion);
+	system("cls");
+	fread (&T, sizeof (T), 1, Turnos);
 	
-	fwrite (&T, sizeof (T), 1, arch);
+	while(!feif(Turnos)){
+		if(&& resp==0){
+			if(TurnosDisp ==0 && resp==0){
+				  printf("Ingrese la matricula del veterinario");
+	              scanf("%s" &T.MatriculaVet);
+	              printf("Ingrese el DNI del Dueño:");
+	              scanf("%d", &T.DNI_dueno);
+             	  printf("Detalle la razon del turno:\n");
+	              scanf("%s"&T.detalleAtencion);
+			}
+		}
+		
+	}
+	
+	if (resp==1){
+		printf("\n*******************************************************");
+		printf("\n\t\t El turno ha sido rservado con exito!");
+		printf("\n*******************************************************");
+	}
+	else{
+		printf("\n*******************************************************");
+		printf("\n\t\t El dia ingresado no esta disponible");
+		printf("\n*******************************************************");
+	 
+	}
+
+	
+	
 }
 
 
