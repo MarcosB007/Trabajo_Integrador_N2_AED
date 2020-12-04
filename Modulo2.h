@@ -23,14 +23,15 @@ struct Datosmascota{
  	int MatriculaVet;
  	int DNI_dueno;
  	char detalleAtencion [380];
+ 	int disponible;
  	fecha f_turnos;
  };
 
 
 //char dibujarMenu();
-void cargar(FILE *arch);
-void cargaTurnos(FILE *arch);
-
+void cargar(FILE *Mascotas);
+void cargaTurnos(FILE *Turnos);
+void ListarTurno (File *Turnos);
 
 
   /*FILE *Mascotas = fopen("Marcostas.dat","a+b");
@@ -77,9 +78,9 @@ void cargaTurnos(FILE *arch);
 
 
 
-	void carga(FILE *arch){
+	void carga(FILE *Mascotas){
 		Datosmascota Dm;
-	
+	  FILE *Mascotas = fopen("Marcostas.dat","a+b");
 	 
 	 printf("\n\t*************************************************************************");
 	 printf("\n\t\tIncio del registro de la mascota:");
@@ -106,6 +107,8 @@ void cargaTurnos(FILE *arch);
          
          system("PAUSE"); 
 	fwrite (&Dm, sizeof (Dm), 1, arch);
+	system("cls");
+	fclose(Mascotas);
 		
 }
 void cargaTurnos(FILE *Turnos){
@@ -125,15 +128,20 @@ void cargaTurnos(FILE *Turnos){
 	system("cls");
 	fread (&T, sizeof (T), 1, Turnos);
 	
-	while(!feif(Turnos)){
-		if(&& resp==0){
-			if(TurnosDisp ==0 && resp==0){
-				  printf("Ingrese la matricula del veterinario");
+	while(!feof(Turnos)){
+		if(turnos.f_turnos= turnos.f_turnos.dia && resp==0){
+			if(turnos.disponible ==0 && resp==0){
+				printf("\n*********************************************************");
+				printf("\n\t\t\tDatos del turno");
+				printf("\n*********************************************************");
+				  turnos.disponible=1;
+				  printf("Ingrese la matricula del veterinario:");
 	              scanf("%s" &T.MatriculaVet);
 	              printf("Ingrese el DNI del Dueño:");
 	              scanf("%d", &T.DNI_dueno);
              	  printf("Detalle la razon del turno:\n");
 	              scanf("%s"&T.detalleAtencion);
+	              resp =1;
 			}
 		}
 		
@@ -155,6 +163,29 @@ void cargaTurnos(FILE *Turnos){
 	
 }
 
-
+void ListarTurno (File *Turnos){
+	Turnos = fopen("Turnos.dat", "r");
+	Turnos T;
+	
+	fread(&T, sizeof(Turnos),1,Turnos);
+	
+	while(!feof(Turnos)){
+		if(!feof(Turnos)){
+			system("cls");
+	printf("\n**************************************************************");
+	printf("\n\t\t Lista de turnos");
+	printf("\n**************************************************************");
+	printf("Dia: %d", turnos.f_turnos.dia);
+	printf("Mes: %d", turnos.f_turnos.mes);
+	printf("Año: %d", turnos.f_turnos.anio);
+	
+	fread(&T, sizeof(Turnos),1,Turnos)
+			
+		}
+	}
+	getch();
+	fclose(Turnos);
+	system("cls");
+}
 	
 	
