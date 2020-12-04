@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <windows.h>
-
 typedef char cadena [50];
 
 struct fechas
@@ -146,7 +141,7 @@ void cargarVeterinario ()
 	
 	do
 	{
-		int	CantMayus=0, CantMinus=0,Signos=0,Numeros=0;
+		int	CantMayus=0, CantMinus=0,Signos=0,Numeros=0,Consecutivos=1;
 		
 		system ("cls");
 		printf ("\tINGRESE UNA CONTRASENA PARA EL USUARIO %s\n\n",per.Usuario);
@@ -161,7 +156,7 @@ void cargarVeterinario ()
 		
 		cantidad = strlen(per.Contrasena);
 		
-		if (cantidad >= 6 && cantidad <= 32)
+		if (cantidad >= 6 && cantidad <= 32)	//Validar contrasena
 		{
 			for (int i=0; i<cantidad; i++)
 			{
@@ -183,7 +178,25 @@ void cargarVeterinario ()
 					Numeros++;
 				}
 			}
-			if (CantMayus >= 1  && CantMinus >= 1 && Signos == 0 && Numeros >= 1)
+			
+			strlwr(per.Contrasena);
+			
+			for(int i=0; i<strlen(per.Contrasena); i++) //Validar que so sean caracteres consecutivos
+			{
+				if (per.Contrasena[i] >= 'a' && per.Contrasena[i] <= 'z')
+				{
+					if (i>0 && per.Contrasena[i-1] > '9' && per.Contrasena[i] == per.Contrasena[i-1] + 1)
+					{
+						Consecutivos++;
+					}
+				}
+				if (Consecutivos == 2)
+				{
+					break;
+				}
+			}
+			
+			if (CantMayus >= 1  && CantMinus >= 1 && Signos == 0 && Numeros <=3 && Consecutivos !=2)
 			{
 				printf ("\n\nEl Usuario y Contrasena fue Registrado\n");
 				per.ValidarUsuario = true;	
