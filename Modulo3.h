@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <windows.h>
 
 typedef char cadena [50];
 
@@ -10,6 +14,7 @@ struct persona
 {
 	char ApeyNom[50];
 	char Usuario[50];
+	char Contrasena[50];
 	int edad;
 	int DNI;
 	bool ValidarUsuario = false;
@@ -17,16 +22,11 @@ struct persona
 };
 
 void opciones();
-void cargarVeterinario (persona per);
+void cargarVeterinario ();
 
-main()
-{
-	opciones();
-}
 
 void opciones()
 {
-	persona per;
 	int opc;
 	do
 	{
@@ -45,7 +45,7 @@ void opciones()
 		switch (opc)
 		{
 			case 1:
-				cargarVeterinario(per);
+				cargarVeterinario();
 				printf ("\n\n");
 				system ("pause");
 				break;
@@ -70,9 +70,12 @@ void opciones()
 }
 
 
-void cargarVeterinario (persona per)
+void cargarVeterinario ()
 {
+	int cantidad=0;
+	persona per;
 	bool primerLetra = false;
+	int Band = 0;
 	
 	system ("cls");
 	printf ("\tREGISTRAR VETERINARIO\n\n");
@@ -92,7 +95,7 @@ void cargarVeterinario (persona per)
 	scanf ("%d",&per.fech.anio);
 	do
 	{
-		int cantidad=0,contadorLetra=0,contadorNumero=0;
+		int contadorLetra=0,contadorNumero=0;
 			
 		system ("cls");
 		printf ("\tIngrese un Nombre de Usuario para %s\n\n",per.ApeyNom);
@@ -126,7 +129,7 @@ void cargarVeterinario (persona per)
 			if (primerLetra == true && contadorLetra >= 2 && contadorNumero <= 3)
 			{
 				printf ("\nEl Usuario fue registrado\n");
-				per.ValidarUsuario = true;
+				Band = 1;
 			}	
 			else
 			{
@@ -137,6 +140,63 @@ void cargarVeterinario (persona per)
 		else
 		{
 			printf ("\nEl Nombre de Usuario es muy corto, o muy largo\n\n");
+			system ("pause");
+		}
+	}while (Band == 0);
+	
+	do
+	{
+		int	CantMayus=0, CantMinus=0,Signos=0,Numeros=0;
+		
+		system ("cls");
+		printf ("\tINGRESE UNA CONTRASENA PARA EL USUARIO %s\n\n",per.Usuario);
+		printf ("Cosas a tener en cuenta al crear la contrasena\n\n");
+		printf ("a) Debe tener al menos una letra mayuscula, una minuscula, y un numero\n");
+		printf ("b) No puede contener caracteres especiales como puntos, acentos y espacios. Solo caracteres alfanumericos\n");
+		printf ("c) Debe tener entre 6 y 32 caracteres\n");
+		printf ("d) No debe tener mas de 3 caracteres numericos consecutivos\n");
+		printf ("e) No debe tener dos caracteres consecutivos de forma ascendente\n");
+		printf ("\n\nIngrese la Contrasena: ");
+		scanf ("%s",&per.Contrasena);
+		
+		cantidad = strlen(per.Contrasena);
+		
+		if (cantidad >= 6 && cantidad <= 32)
+		{
+			for (int i=0; i<cantidad; i++)
+			{
+				if (per.Contrasena[i] >= 65 && per.Contrasena[i] <= 90)
+				{
+					CantMayus++;
+				}
+				if (per.Contrasena[i] >= 97 && per.Contrasena[i] <= 122)
+				{
+					CantMinus++;
+				}
+				if (per.Contrasena[i] > 31 && per.Contrasena[i] < 48 || per.Contrasena[i] > 57 && per.Contrasena[i] < 65
+				|| per.Contrasena[i] > 90 && per.Contrasena[i] < 97 || per.Contrasena[i] > 122 && per.Contrasena[i] <=255)
+				{
+					Signos++;
+				}
+				if (per.Contrasena[i] >= 48 && per.Contrasena[i] <= 57)
+				{
+					Numeros++;
+				}
+			}
+			if (CantMayus >= 1  && CantMinus >= 1 && Signos == 0 && Numeros >= 1)
+			{
+				printf ("\n\nEl Usuario y Contrasena fue Registrado\n");
+				per.ValidarUsuario = true;	
+			}
+			else 
+			{
+				printf ("\n[ERROR]: La contrasena ingresada no es valida. Vuelva a ingresar...\n\n");
+				system ("pause");
+			}
+		}
+		else
+		{
+			printf ("\nLa contrasena ingresada es muy larga, o muy corta. Vuelva a ingresar...\n\n");
 			system ("pause");
 		}
 	}while (per.ValidarUsuario == false);
