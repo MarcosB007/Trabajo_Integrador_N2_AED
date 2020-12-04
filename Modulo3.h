@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <windows.h>
 
 typedef char cadena [50];
 
@@ -16,15 +12,17 @@ struct persona
 	char Usuario[50];
 	int edad;
 	int DNI;
-	bool ValiarUsuario = false;
+	bool ValidarUsuario = false;
 	fechas fech;
 };
 
 void opciones();
 void cargarVeterinario (persona per);
 
-
-
+main()
+{
+	opciones();
+}
 
 void opciones()
 {
@@ -74,7 +72,7 @@ void opciones()
 
 void cargarVeterinario (persona per)
 {
-	int cantidad=0;
+	bool primerLetra = false;
 	
 	system ("cls");
 	printf ("\tREGISTRAR VETERINARIO\n\n");
@@ -94,21 +92,52 @@ void cargarVeterinario (persona per)
 	scanf ("%d",&per.fech.anio);
 	do
 	{
+		int cantidad=0,contadorLetra=0,contadorNumero=0;
+			
 		system ("cls");
 		printf ("\tIngrese un Nombre de Usuario para %s\n\n",per.ApeyNom);
 		printf ("Cosas a tener en cuenta al crear un usuario\n\n");
 		printf ("a) Debe ser un Nombre de 6 a 10 digitos\n");
 		printf ("b) Comenzar con una letra Minuscula\n");
-		printf ("c) Tener al menos de letras Mayusculas\n");
+		printf ("c) Tener al menos dos letras Mayusculas\n");
 		printf ("d) Tener como Maximo tres Numeros");
 		printf ("\n\nIngrese el Nombre de Usuario: ");
 		scanf ("%s",&per.Usuario);
 		
 		cantidad = strlen(per.Usuario);
-
-		for (int i=0; i<cantidad; i++)
+		
+		if (cantidad >= 6 && cantidad <= 10)
 		{
-
+			if (per.Usuario[0] > 63 && per.Usuario[0] < 91)
+			{
+				primerLetra = true;
+			}
+			for (int i=0; i<cantidad; i++)
+			{
+				if (per.Usuario[i] > 63 && per.Usuario[i] < 91)
+				{
+					contadorLetra++;
+				}
+				if (per.Usuario[i] >= 48 && per.Usuario[i] <= 57)
+				{
+					contadorNumero++;
+				}
+			}
+			if (primerLetra == true && contadorLetra >= 2 && contadorNumero <= 3)
+			{
+				printf ("\nEl Usuario fue registrado\n");
+				per.ValidarUsuario = true;
+			}	
+			else
+			{
+				printf ("\n El nombre de usuario NO es valido, vuelva a ingresar...\n\n");
+				system ("pause");
+			}
 		}
-	}while ();
+		else
+		{
+			printf ("\nEl Nombre de Usuario es muy corto, o muy largo\n\n");
+			system ("pause");
+		}
+	}while (per.ValidarUsuario == false);
 }
