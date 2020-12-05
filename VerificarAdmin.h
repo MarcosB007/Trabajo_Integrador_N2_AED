@@ -4,6 +4,7 @@ struct Usuarios{
 	char Apellido_Y_Nombre[60];
 	char nomUsuario[10];
 	char contrasenia[10];
+	bool admin;
 };
 
 void InicioSesion(FILE *usuario){
@@ -17,23 +18,26 @@ void InicioSesion(FILE *usuario){
 		printf("\nNombre de usuario: ");
 		_flushall();
 		gets(nombreUsuario);
+		printf("Contrasenia: ");
+		gets(contr);
 		
 		rewind(usuario);			
 		fread(&lect, sizeof(lect), 1, usuario);	   			
 		while(!feof(usuario)){
-			   					
+			
 			if(strcmp(lect.nomUsuario,nombreUsuario) == 0){
-				b = true;
-				break;
+				if(strcmp(lect.contrasenia,contr) == 0){
+					b = true;
+					break;	
+				}
 			}
+			
 			fread(&lect, sizeof(lect), 1, usuario);
 		}
 		if(b == false){
-			printf("Nombre de usuario incorrecto.");
+			printf("Nombre de usuario o contrasenia incorrecto.");
 		}
 	}while(b != true);
-	
-	
 	
 }
 
@@ -79,26 +83,71 @@ void registrar(FILE *usuario){
 						}
 						if(contadorNum < 4){
 			   			    bandera = true;
-			   				
-			   				rewind(usuario);
-			   				fread(&lectura, sizeof(lectura), 1, usuario);
-			   				while(!feof(usuario)){
-			   					
-			   					if(strcmp(admin.nomUsuario, lectura.nomUsuario) == 0){
-			   						bandera = false;
-								}
-			   					fread(&lectura, sizeof(lectura), 1, usuario);
-							}
+			   				admin.admin = true;
 						}
-					}	
+					}
 				}	
-			}
+			}	
 		}
+	
 		if(bandera == false){
 			printf("\nEl nombre de usuario ingresado no cumple con alguna de las condiciones dadas.");
 			printf("\nVuelva a intentar.");
 		}
 	}while(bandera == false);
 	
+	
+	printf("\nContrasenia: ");
+	printf("\nAVISOS IMPORTANTES!\n");
+	printf("\nDebera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
+	printf("\nNo podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
+	printf("\nDebera tener entre 6 y 32 caracteres");
+	printf("\nNo debe tener mas de 3 caracteres numericos consecutivos. ");
+	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas");
+	
+	int may = 0, min = 0, num = 0, otros = 0, numcons = 0, letrasCons = 1;
+	cadena passAux;
+	
+	do{
+		printf("\nIngrese su contrasenia: ");
+		gets(passAux);
+		strcpy(admin.contrasenia, passAux);
+
+		for(int i=0; i<strlen(passAux); i++){
+			if (passAux[i] >='A' && passAux[i] <='Z'){
+			may++;
+			numcons = 0;		
+			} 
+			else if (passAux[i] >='a' && passAux[i] <='z'){
+				 min++;
+				 numcons = 0;
+	 		}
+			else if (passAux[i] >= '0' && passAux[i] <='9'){
+			 	num++;
+				numcons++;	
+			    }
+			 	else otros++;
+			if (numcons == 4){
+				
+			}
+		}
+		strlwr(passAux);
+		
+		for(int i=0; i<strlen(passAux); i++){
+			if (passAux[i] >='a' && passAux[i] <='z'){
+			   if(i>0 && passAux[i-1]>'9' && passAux[i]==passAux[i-1]+1) letrasCons++;			
+			}
+		}	
+		
+	}while(may<1 || 
+		   min<1 || 
+		   num<1 || 
+		   otros!=0 || 
+	       strlen(passAux)<6 || 
+		   strlen(passAux)>32 || 
+		   numcons>3 || letrasCons>1);  
+	
 	fwrite(&admin, sizeof(admin), 1, usuario);
 }
+
+

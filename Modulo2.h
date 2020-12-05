@@ -53,7 +53,7 @@ void ListarTurno (File *Turnos);
   				
   			
 	  }
-  }
+  }*/
 	
 	
 	
@@ -74,7 +74,7 @@ void ListarTurno (File *Turnos);
 	_flushall();
 	scanf("%c", &opc);
 	return opc;
-}*/
+}
 
 
 

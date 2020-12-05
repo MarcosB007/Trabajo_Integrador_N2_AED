@@ -53,7 +53,7 @@ main()
 	
 	}
 	else{
-		printf("Nombre de usuario o contraseña incorrecta.");
+		//printf("Nombre de usuario o contraseña incorrecta.");
 	}
 	
 	fclose(usuarios);
