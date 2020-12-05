@@ -1,4 +1,4 @@
-typedef char cadena [50];
+typedef char cadenaM3 [50];
 
 struct fechas
 {
@@ -16,11 +16,11 @@ struct persona
 	fechas fech;
 };
 
-void opciones();
-void cargarVeterinario ();
+//void opciones();
+//void cargarVeterinario ();
 
 
-void opciones()
+void menuAdministrador()
 {
 	int opc;
 	do
@@ -88,6 +88,8 @@ void cargarVeterinario ()
 	scanf ("%d",&per.fech.mes);
 	printf ("Anio: ");
 	scanf ("%d",&per.fech.anio);
+	//per.edad = 2020 - per.fech.anio; 
+	
 	do
 	{
 		int contadorLetra=0,contadorNumero=0;

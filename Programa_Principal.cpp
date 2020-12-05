@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 #include "VerificarAdmin.h"
+#include "Modulo3.h"
+//#include "Modulo2.h"
 
 int MenuPrincipal();
 
@@ -10,6 +12,7 @@ bool verificar = false;
 main()
 {
 	FILE *usuarios = fopen("Usuarios.dat","a+b");
+	FILE *veterinarios = fopen("Veterinarios.dat","a+b");
 	char lectura;
 	
 	rewind(usuarios);
@@ -66,7 +69,8 @@ int MenuPrincipal(){
 	printf("1.- MODULO CONSULTORIO\n");
 	printf("2.- MODULO DEL ASISTENTE\n");
 	printf("3.- MODULO DE ADMINISTRACION\n");
-	printf("4.- SALIR");
+	printf("4.- SALIR\n");
+	printf("4.- Ingrese una opcion: ");
 	scanf("%d", &opc);
 	return opc;
 }

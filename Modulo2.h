@@ -1,5 +1,5 @@
 
-typedef char cadena [45];
+//typedef char cadenaM2 [45];
 
 struct fecha{
 	int dia,mes,anio;
@@ -29,9 +29,9 @@ struct Datosmascota{
 
 
 //char dibujarMenu();
-void cargar(FILE *Mascotas);
-void cargaTurnos(FILE *Turnos);
-void ListarTurno (File *Turnos);
+//void cargar(FILE *Mascotas);
+//void cargaTurnos(FILE *Turnos);
+//void ListarTurno (File *Turnos);
 
 
   /*FILE *Mascotas = fopen("Marcostas.dat","a+b");
@@ -80,7 +80,7 @@ void ListarTurno (File *Turnos);
 
 	void carga(FILE *Mascotas){
 		Datosmascota Dm;
-	  FILE *Mascotas = fopen("Marcostas.dat","a+b");
+	  //FILE *Mascotas = fopen("Marcostas.dat","a+b");
 	 
 	 printf("\n\t*************************************************************************");
 	 printf("\n\t\tIncio del registro de la mascota:");
@@ -106,14 +106,14 @@ void ListarTurno (File *Turnos);
          scanf("%d", &Dm.f_mascota.anio);
          
          system("PAUSE"); 
-	fwrite (&Dm, sizeof (Dm), 1, arch);
+	fwrite (&Dm, sizeof (Dm), 1, Mascotas);
 	system("cls");
 	fclose(Mascotas);
 		
 }
-void cargaTurnos(FILE *Turnos){
-	Turnos T;
-	FILE *Turnos = fopen("Turnos.dat", "r");
+void cargaTurnos(FILE *ArchTurnos){
+	turnos T;
+	//FILE *Turnos = fopen("Turnos.dat", "r");
 	int resp=0,i;
 	printf("\n\t**************************************************************");
 	printf("\n\t Registro de Turnos");
@@ -126,10 +126,10 @@ void cargaTurnos(FILE *Turnos){
 	printf("Ingrese el año:\n");
 	scanf("%d", &T.f_turnos.anio);
 	system("cls");
-	fread (&T, sizeof (T), 1, Turnos);
+	fread (&T, sizeof (T), 1, ArchTurnos);
 	
-	while(!feof(Turnos)){
-		if(turnos.f_turnos= turnos.f_turnos.dia && resp==0){
+	while(!feof(ArchTurnos)){
+		if(turnos.f_turnos.mes= turnos.f_turnos.dia && resp==0){
 			if(turnos.disponible ==0 && resp==0){
 				printf("\n*********************************************************");
 				printf("\n\t\t\tDatos del turno");
