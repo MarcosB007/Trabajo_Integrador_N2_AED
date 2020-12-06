@@ -5,6 +5,7 @@
 
 int MenuPrincipal();
 void menuAdministrador(FILE *archVet);
+//void menuConsultorio(FILE *archVet);
 
 bool verificar = false;
 
@@ -42,7 +43,7 @@ main()
 		
 		switch(opcion){
 			case 1:
-	 			   
+	 			   //menuConsultorio(veterinarios);
 			break;
 			
 			case 2:
@@ -75,53 +76,6 @@ int MenuPrincipal(){
 	scanf("%d", &opc);
 	return opc;
 }
-
-void menuAdministrador(FILE *archVet)
-{
-	int opc;
-	do
-	{
-		system ("cls");
-		printf ("\t*************************************");
-		printf ("\n\t* MENU DE OPCIONES DE ADMINISTRADOR *");
-		printf ("\n\t*************************************\n");
-		printf ("\n1) Registrar un Nuevo Veterinario");
-		printf ("\n2) Registrar un Nuevo Usuario Asistente");
-		printf ("\n3) Atenciones por Veterinario");
-		printf ("\n4) Ranking de Veterinarios por Atencion");
-		printf ("\n5) Cerrar Aplicacion");
-		printf ("\n\nOpcion: ");
-		scanf ("%d",&opc);
-		
-		switch (opc)
-		{
-			case 1:	cargarVeterinario(archVet);
-				 	printf ("\n\n");
-					system ("pause");
-				
-				break;
-			case 2:
-				
-				break;
-			case 3:	
-				 	
-				
-				break;
-			case 4:
-				
-				break;
-			case 5:
-				printf ("\nSaliendo del programa...\n\n");
-				system ("pause");
-				break;
-			default:
-				printf ("\n[Advertencia]: La opcion elegida no es valida, vuelva a ingresar\n\n");
-				system ("pause");
-		}
-	}while (opc != 5);
-}
-
-
 
 
 

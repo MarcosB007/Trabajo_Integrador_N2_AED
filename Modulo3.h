@@ -1,9 +1,9 @@
 //#include "Estructuras.h"
 //void opciones();
-//void cargarVeterinario ();
+void cargarVeterinario(FILE *archVet);
 
 
-/*void menuAdministrador(FILE *archVet)
+void menuAdministrador(FILE *archVet)
 {
 	int opc;
 	do
@@ -45,10 +45,10 @@
 				system ("pause");
 		}
 	}while (opc != 5);
-}*/
+}
 
 
-void cargarVeterinario(FILE *Archivo)
+void cargarVeterinario(FILE *archVet)
 {
 	int cantidad=0;
 	Veterinario per;
