@@ -1,6 +1,6 @@
-#include "Estructuras.h"
+void registrarVet(FILE *veterinario);
 
-void menuConsultorio()
+void menuConsultorio(FILE *veterinario)
 {
 	int opc;
 	do
@@ -19,7 +19,7 @@ void menuConsultorio()
 		switch (opc)
 		{
 			case 1:
-				
+				   IndentificarVeterinario(veterinario);
 				break;
 			case 2:
 				
@@ -41,7 +41,7 @@ void menuConsultorio()
 
 void registrarVet(FILE *veterinario){
 	
-	cadenaM1 user, password;
+	cadena user, password;
 	
 	printf("\nMatricula: ");
 		_flushall();

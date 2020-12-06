@@ -37,6 +37,38 @@ void InicioSesion(FILE *usuario){
 	
 }
 
+void IndentificarVeterinario(FILE *Vet){
+	
+	cadena matricula, contr;
+	Veterinario lect;
+	
+	rewind(Vet);
+	
+	bool b = false;
+	do{
+		printf("\nINICIO DE SESION\n");
+		printf("\nMatricula: ");
+		_flushall();
+		gets(matricula);
+		printf("Contrasenia: ");
+		gets(contr);
+		
+					
+		fread(&lect, sizeof(lect), 1, Vet);	   			
+		while(!feof(Vet)){
+			
+			if(strcmp(lect.matricula,matricula) == 0){
+				if(strcmp(lect.Contrasena,contr) == 0){
+					b = true;
+					break;	
+				}
+			}
+			
+			fread(&lect, sizeof(lect), 1, Vet);
+		}
+	}while(b != false);
+}
+
 void registrar(FILE *usuario){
 	
 	cadena nombre, contr;

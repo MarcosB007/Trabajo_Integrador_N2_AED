@@ -1,6 +1,6 @@
 #include "VerificarAdmin.h"
 #include "Modulo3.h"
-//#include "Modulo_Consultorio.h"
+#include "Modulo_Consultorio.h"
 //#include "Modulo2.h"
 
 int MenuPrincipal();
@@ -43,7 +43,7 @@ main()
 		
 		switch(opcion){
 			case 1:
-	 			   //menuConsultorio(veterinarios);
+	 			   menuConsultorio(veterinarios);
 			break;
 			
 			case 2:

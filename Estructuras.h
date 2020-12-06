@@ -20,7 +20,8 @@ struct Veterinario
 {
 	char ApeyNom[50];
 	char Usuario[50];
-	char Contrasena[50];
+	char Contrasena[32];
+	char matricula[50];
 	int edad;
 	int DNI;
 	bool ValidarUsuario = false;
