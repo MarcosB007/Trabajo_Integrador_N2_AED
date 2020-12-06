@@ -1,31 +1,5 @@
 
-//typedef char cadenaM2 [45];
-
-struct fecha{
-	int dia,mes,anio;
-};
-struct usuarios{
-	char usuario[10];
-	char contrasena[10];
-	char AyN[60];
-};
-
-struct Datosmascota{
-	char AyN[60];
-	char domicilio[60];
-	int DNI_dueno;
-	char localidad [60];
-	float peso;
-	char telefono[25];
-	fecha f_mascota;
-};
- struct turnos{
- 	int MatriculaVet;
- 	int DNI_dueno;
- 	char detalleAtencion [380];
- 	int disponible;
- 	fecha f_turnos;
- };
+ #include "Estructuras.h"
 
 
 //char dibujarMenu();

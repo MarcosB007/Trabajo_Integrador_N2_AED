@@ -1,11 +1,10 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
 #include "VerificarAdmin.h"
 #include "Modulo3.h"
+//#include "Modulo_Consultorio.h"
 //#include "Modulo2.h"
 
 int MenuPrincipal();
+void menuAdministrador(FILE *archVet);
 
 bool verificar = false;
 
@@ -25,7 +24,7 @@ main()
 	}
 	
 	if(verificar == false){
-		registrar(usuarios);
+ 		registrar(usuarios); 
 		verificar = true;
 	}
 	system("cls");
@@ -42,13 +41,15 @@ main()
 		opcion = MenuPrincipal();
 		
 		switch(opcion){
-			case 1: 
+			case 1:
+	 			   
 			break;
 			
 			case 2:
 			break;
 			
 			case 3:	
+				 	menuAdministrador(veterinarios);
 			break;
 		}
 		
@@ -56,7 +57,7 @@ main()
 	
 	}
 	else{
-		//printf("Nombre de usuario o contraseña incorrecta.");
+		printf("Nombre de usuario o contraseña incorrecta.");
 	}
 	
 	fclose(usuarios);
@@ -75,20 +76,50 @@ int MenuPrincipal(){
 	return opc;
 }
 
-/*int MenuConsultorio(){
-	
-	system("cls");
+void menuAdministrador(FILE *archVet)
+{
 	int opc;
-	printf("1.- Iniciar sesion\n");
-	printf("2.- Visualizar Lista de Espera de Turnos\n");
-	printf("3.- Registrar Evolución de la Mascota\n\n");
-	printf("4.- Cerrar la aplicación\n");
-	scanf("%d", &opc);
-	return opc;
-	
-}*/
-
-
+	do
+	{
+		system ("cls");
+		printf ("\t*************************************");
+		printf ("\n\t* MENU DE OPCIONES DE ADMINISTRADOR *");
+		printf ("\n\t*************************************\n");
+		printf ("\n1) Registrar un Nuevo Veterinario");
+		printf ("\n2) Registrar un Nuevo Usuario Asistente");
+		printf ("\n3) Atenciones por Veterinario");
+		printf ("\n4) Ranking de Veterinarios por Atencion");
+		printf ("\n5) Cerrar Aplicacion");
+		printf ("\n\nOpcion: ");
+		scanf ("%d",&opc);
+		
+		switch (opc)
+		{
+			case 1:	cargarVeterinario(archVet);
+				 	printf ("\n\n");
+					system ("pause");
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:	
+				 	
+				
+				break;
+			case 4:
+				
+				break;
+			case 5:
+				printf ("\nSaliendo del programa...\n\n");
+				system ("pause");
+				break;
+			default:
+				printf ("\n[Advertencia]: La opcion elegida no es valida, vuelva a ingresar\n\n");
+				system ("pause");
+		}
+	}while (opc != 5);
+}
 
 
 

@@ -1,26 +1,9 @@
-typedef char cadenaM3 [50];
-
-struct fechas
-{
-	int dia,mes,anio;	
-};
-
-struct persona
-{
-	char ApeyNom[50];
-	char Usuario[50];
-	char Contrasena[50];
-	int edad;
-	int DNI;
-	bool ValidarUsuario = false;
-	fechas fech;
-};
-
+//#include "Estructuras.h"
 //void opciones();
 //void cargarVeterinario ();
 
 
-void menuAdministrador()
+/*void menuAdministrador(FILE *archVet)
 {
 	int opc;
 	do
@@ -40,7 +23,7 @@ void menuAdministrador()
 		switch (opc)
 		{
 			case 1:
-				cargarVeterinario();
+				cargarVeterinario(archVet);
 				printf ("\n\n");
 				system ("pause");
 				break;
@@ -62,13 +45,13 @@ void menuAdministrador()
 				system ("pause");
 		}
 	}while (opc != 5);
-}
+}*/
 
 
-void cargarVeterinario ()
+void cargarVeterinario(FILE *Archivo)
 {
 	int cantidad=0;
-	persona per;
+	Veterinario per;
 	bool primerLetra = false;
 	int Band = 0;
 	
@@ -77,8 +60,8 @@ void cargarVeterinario ()
 	printf ("Apellido y Nombre: ");
 	_flushall();
 	gets (per.ApeyNom);
-	printf ("Edad: ");
-	scanf ("%d",&per.edad);
+	//printf ("Edad: ");
+	//scanf ("%d",&per.edad);
 	printf ("DNI: ");
 	scanf ("%d",&per.DNI);
 	printf ("\nIngrese la fecha de Nacimiento\n\n");
@@ -88,7 +71,7 @@ void cargarVeterinario ()
 	scanf ("%d",&per.fech.mes);
 	printf ("Anio: ");
 	scanf ("%d",&per.fech.anio);
-	//per.edad = 2020 - per.fech.anio; 
+	per.edad = 2020 - per.fech.anio; 
 	
 	do
 	{

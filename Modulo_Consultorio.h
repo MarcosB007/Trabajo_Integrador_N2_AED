@@ -1,20 +1,4 @@
-typedef char cadena [50];
-
-struct fechas
-{
-	int dia,mes,anio;	
-};
-
-struct persona
-{
-	char ApeyNom[50];
-	char Usuario[50];
-	char Contrasena[50];
-	int edad;
-	int DNI;
-	bool ValidarUsuario = false;
-	fechas fech;
-};
+#include "Estructuras.h"
 
 void menuConsultorio()
 {
@@ -23,7 +7,7 @@ void menuConsultorio()
 	{
 		system ("cls");
 		printf ("\t*************************************");
-		printf ("\n\t* MENU DE OPCIONES DE ADMINISTRADOR *");
+		printf ("\n\t* MENU DE OPCIONES DEL CONSULTORIO *");
 		printf ("\n\t*************************************\n");
 		printf("1.- Iniciar sesion\n");
 		printf("2.- Visualizar Lista de Espera de Turnos\n");
@@ -54,3 +38,24 @@ void menuConsultorio()
 	}while (opc != 4);
 	
 }
+
+void registrarVet(FILE *veterinario){
+	
+	cadenaM1 user, password;
+	
+	printf("\nMatricula: ");
+		_flushall();
+		gets(user);
+		printf("Contrasenia: ");
+		gets(password);
+	rewind(veterinario);
+	
+	
+	
+}
+
+
+
+
+
+

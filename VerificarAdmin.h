@@ -1,11 +1,4 @@
-typedef char cadena[50];
-	
-struct Usuarios{
-	char Apellido_Y_Nombre[60];
-	char nomUsuario[10];
-	char contrasenia[10];
-	bool admin;
-};
+#include "Estructuras.h"
 
 void InicioSesion(FILE *usuario){
 	
@@ -97,7 +90,7 @@ void registrar(FILE *usuario){
 	}while(bandera == false);
 	
 	
-	printf("\nContrasenia: ");
+ printf("\nContrasenia: ");
 	printf("\nAVISOS IMPORTANTES!\n");
 	printf("\nDebera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
 	printf("\nNo podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
@@ -145,7 +138,7 @@ void registrar(FILE *usuario){
 		   otros!=0 || 
 	       strlen(passAux)<6 || 
 		   strlen(passAux)>32 || 
-		   numcons>3 || letrasCons>1);  
+		   numcons>3 || letrasCons>1);	 
 	
 	fwrite(&admin, sizeof(admin), 1, usuario);
 }
