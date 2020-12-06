@@ -1,5 +1,4 @@
-//#include "Estructuras.h"
-//void opciones();
+
 void cargarVeterinario(FILE *archVet);
 
 
@@ -49,9 +48,10 @@ void menuAdministrador(FILE *archVet)
 
 
 void cargarVeterinario(FILE *archVet)
-{
+{	
+	Veterinario vet;
+	cadena userAux, passAux;
 	int cantidad=0;
-	Veterinario per;
 	bool primerLetra = false;
 	int Band = 0;
 	
@@ -59,21 +59,27 @@ void cargarVeterinario(FILE *archVet)
 	printf ("\tREGISTRAR VETERINARIO\n\n");
 	printf ("Apellido y Nombre: ");
 	_flushall();
-	gets (per.ApeyNom);
+	gets (vet.ApeyNom);
 	//printf ("Edad: ");
 	//scanf ("%d",&per.edad);
 	printf ("DNI: ");
-	scanf ("%d",&per.DNI);
+	scanf ("%d",&vet.DNI);
 	printf ("\nIngrese la fecha de Nacimiento\n\n");
 	printf ("Dia: ");
-	scanf ("%d",&per.fech.dia);
+	scanf ("%d",&vet.fech.dia);
 	printf ("Mes: ");
-	scanf ("%d",&per.fech.mes);
+	scanf ("%d",&vet.fech.mes);
 	printf ("Anio: ");
-	scanf ("%d",&per.fech.anio);
-	per.edad = 2020 - per.fech.anio; 
+	scanf ("%d",&vet.fech.anio);
+	vet.edad = 2020 - vet.fech.anio; 
 	
-	do
+	user(archVet, userAux);
+	strcpy(vet.Usuario,userAux);
+	
+	password(archVet, passAux);
+	strcpy(vet.Contrasena, passAux);
+	
+	/*do
 	{
 		int contadorLetra=0,contadorNumero=0;
 			
@@ -122,9 +128,9 @@ void cargarVeterinario(FILE *archVet)
 			printf ("\nEl Nombre de Usuario es muy corto, o muy largo\n\n");
 			system ("pause");
 		}
-	}while (Band == 0);
+	}while (Band == 0);*/
 	
-	do
+	/*do
 	{
 		int	CantMayus=0, CantMinus=0,Signos=0,Numeros=0,Consecutivos=1;
 		
@@ -137,40 +143,40 @@ void cargarVeterinario(FILE *archVet)
 		printf ("d) No debe tener mas de 3 caracteres numericos consecutivos\n");
 		printf ("e) No debe tener dos caracteres consecutivos de forma ascendente\n");
 		printf ("\n\nIngrese la Contrasena: ");
-		scanf ("%s",&per.Contrasena);
+		scanf ("%s",&vet.Contrasena);
 		
-		cantidad = strlen(per.Contrasena);
+		cantidad = strlen(vet.Contrasena);
 		
 		if (cantidad >= 6 && cantidad <= 32)	//Validar contrasena
 		{
 			for (int i=0; i<cantidad; i++)
 			{
-				if (per.Contrasena[i] >= 65 && per.Contrasena[i] <= 90)
+				if (vet.Contrasena[i] >= 65 && vet.Contrasena[i] <= 90)
 				{
 					CantMayus++;
 				}
-				if (per.Contrasena[i] >= 97 && per.Contrasena[i] <= 122)
+				if (vet.Contrasena[i] >= 97 && vet.Contrasena[i] <= 122)
 				{
 					CantMinus++;
 				}
-				if (per.Contrasena[i] > 31 && per.Contrasena[i] < 48 || per.Contrasena[i] > 57 && per.Contrasena[i] < 65
-				|| per.Contrasena[i] > 90 && per.Contrasena[i] < 97 || per.Contrasena[i] > 122 && per.Contrasena[i] <=255)
+				if (vet.Contrasena[i] > 31 && vet.Contrasena[i] < 48 || vet.Contrasena[i] > 57 && vet.Contrasena[i] < 65
+				|| vet.Contrasena[i] > 90 && vet.Contrasena[i] < 97 || vet.Contrasena[i] > 122 && vet.Contrasena[i] <=255)
 				{
 					Signos++;
 				}
-				if (per.Contrasena[i] >= 48 && per.Contrasena[i] <= 57)
+				if (vet.Contrasena[i] >= 48 && vet.Contrasena[i] <= 57)
 				{
 					Numeros++;
 				}
 			}
 			
-			strlwr(per.Contrasena);
+			strlwr(vet.Contrasena);
 			
-			for(int i=0; i<strlen(per.Contrasena); i++) //Validar que so sean caracteres consecutivos
+			for(int i=0; i<strlen(vet.Contrasena); i++) //Validar que so sean caracteres consecutivos
 			{
-				if (per.Contrasena[i] >= 'a' && per.Contrasena[i] <= 'z')
+				if (vet.Contrasena[i] >= 'a' && vet.Contrasena[i] <= 'z')
 				{
-					if (i>0 && per.Contrasena[i-1] > '9' && per.Contrasena[i] == per.Contrasena[i-1] + 1)
+					if (i>0 && vet.Contrasena[i-1] > '9' && per.Contrasena[i] == per.Contrasena[i-1] + 1)
 					{
 						Consecutivos++;
 					}
@@ -197,5 +203,5 @@ void cargarVeterinario(FILE *archVet)
 			printf ("\nLa contrasena ingresada es muy larga, o muy corta. Vuelva a ingresar...\n\n");
 			system ("pause");
 		}
-	}while (per.ValidarUsuario == false);
+	}while (per.ValidarUsuario == false);*/
 }

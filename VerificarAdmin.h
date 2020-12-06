@@ -1,5 +1,8 @@
 #include "Estructuras.h"
 
+void user(FILE *respArch, cadena &aux);
+void password(FILE *respArch, cadena &password);
+
 void InicioSesion(FILE *usuario){
 	
 	cadena nombreUsuario, contr;
@@ -36,6 +39,7 @@ void InicioSesion(FILE *usuario){
 
 void registrar(FILE *usuario){
 	
+	cadena nombre, contr;
 	Usuarios admin, lectura;
 	int longitud, contadorMayus=0, contadorNum=0;
 	bool bandera = false;
@@ -51,32 +55,52 @@ void registrar(FILE *usuario){
 	printf("\nDebe comenzar con una letra minuscula");
 	printf("\nTener al menos 2 letras mayusculas");
 	printf("\nTener como maximo 3 digitos");
+	user(usuario, nombre);
+	strcpy(admin.nomUsuario, nombre);
 	
+ 	printf("\nContrasenia: ");
+	printf("\nAVISOS IMPORTANTES!\n");
+	printf("\nDebera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
+	printf("\nNo podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
+	printf("\nDebera tener entre 6 y 32 caracteres");
+	printf("\nNo debe tener mas de 3 caracteres numericos consecutivos. ");
+	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas");
+	password(usuario, contr);
+	strcpy(admin.contrasenia,contr);
+	admin.admin = true;
+		 
+	
+	fwrite(&admin, sizeof(admin), 1, usuario);
+}
+
+void user(FILE *respArch, cadena &aux){
+	
+	int longitud, contadorMayus=0, contadorNum=0;
+	bool bandera = false;
 	
 	do{
 		printf("\nIngrese su nombre de usuario: ");
-		gets(admin.nomUsuario);
-		longitud = strlen(admin.nomUsuario);
+		gets(aux);
+		longitud = strlen(aux);
 		if(longitud > 5 && longitud < 11){
 		
-			if(admin.nomUsuario[0] > 97 && admin.nomUsuario[0] < 123){
+			if(aux[0] > 97 && aux[0] < 123){
 				
-				for(int i=0; i<strlen(admin.nomUsuario); i++){
+				for(int i=0; i<strlen(aux); i++){
 					
-					if(admin.nomUsuario[i] > 64 && admin.nomUsuario[i] < 91){
+					if(aux[i] > 64 && aux[i] < 91){
 					contadorMayus+=1;
 					}
 			
 					if(contadorMayus > 1){
-						for(int i=0; i<strlen(admin.nomUsuario); i++){
+						for(int i=0; i<strlen(aux); i++){
 				
-			 				if(admin.nomUsuario[i] > 47 && admin.nomUsuario[i] < 58){
+			 				if(aux[i] > 47 && aux[i] < 58){
 			   					contadorNum+=1;
 							}
 						}
 						if(contadorNum < 4){
 			   			    bandera = true;
-			   				admin.admin = true;
 						}
 					}
 				}	
@@ -88,23 +112,17 @@ void registrar(FILE *usuario){
 			printf("\nVuelva a intentar.");
 		}
 	}while(bandera == false);
-	
-	
- printf("\nContrasenia: ");
-	printf("\nAVISOS IMPORTANTES!\n");
-	printf("\nDebera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
-	printf("\nNo podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
-	printf("\nDebera tener entre 6 y 32 caracteres");
-	printf("\nNo debe tener mas de 3 caracteres numericos consecutivos. ");
-	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas");
-	
+}
+
+void password(FILE *respArch, cadena &password){
+	 
 	int may = 0, min = 0, num = 0, otros = 0, numcons = 0, letrasCons = 1;
 	cadena passAux;
 	
 	do{
 		printf("\nIngrese su contrasenia: ");
 		gets(passAux);
-		strcpy(admin.contrasenia, passAux);
+		strcpy(password, passAux);
 
 		for(int i=0; i<strlen(passAux); i++){
 			if (passAux[i] >='A' && passAux[i] <='Z'){
@@ -138,9 +156,15 @@ void registrar(FILE *usuario){
 		   otros!=0 || 
 	       strlen(passAux)<6 || 
 		   strlen(passAux)>32 || 
-		   numcons>3 || letrasCons>1);	 
-	
-	fwrite(&admin, sizeof(admin), 1, usuario);
+		   numcons>3 || letrasCons>1);
+	 
 }
+
+
+
+
+
+
+
 
 
