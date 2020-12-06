@@ -1,4 +1,6 @@
+
 void cargarVeterinario(FILE *archVet);
+void AtencionVeterinario (FILE *ArchTurnos);
 
 void menuAdministrador(FILE *archVet)
 {
@@ -25,10 +27,11 @@ void menuAdministrador(FILE *archVet)
 				system ("pause");
 				break;
 			case 2:
-				
 				break;
 			case 3:
-				
+				AtencionVeterinario(ArchTurnos);
+				printf ("\n\n");
+				system ("pause");
 				break;
 			case 4:
 				
@@ -47,10 +50,10 @@ void menuAdministrador(FILE *archVet)
 
 void cargarVeterinario(FILE *archVet)
 {	
-	Veterinario vet, lect;
-	cadena userAux, passAux, matriculaAux;
+	Veterinario vet;
+	cadena userAux, passAux;
 	int cantidad=0;
-	bool primerLetra = false, b = true;
+	bool primerLetra = false;
 	int Band = 0;
 	
 	system ("cls");
@@ -69,49 +72,13 @@ void cargarVeterinario(FILE *archVet)
 	scanf ("%d",&vet.fech.mes);
 	printf ("Anio: ");
 	scanf ("%d",&vet.fech.anio);
-	vet.edad = 2020 - vet.fech.anio;
-	
-	//verificar que no exista una matricula igual
-	do{
-	   printf("Matricula: ");
-	   _flushall();
-	   gets(matriculaAux);
-	   rewind(archVet);
-	   
-	   fread(&lect, sizeof(Veterinario), 1, archVet);
-	   while(!feof(archVet)){
-			
-			if(strcmp(lect.matricula,matriculaAux) == 0){
-				b = false;
-				printf("La matricula ingresada ya existe. Pruebe con otra.");
-				break;
-			}
-			fread(&lect, sizeof(Veterinario), 1, archVet);
-	   }
-	}while(b==false);
-	
-	printf ("\tIngrese un Nombre de Usuario para %s\n\n",vet.ApeyNom);
-	printf ("Cosas a tener en cuenta al crear un usuario\n\n");
-	printf ("a) Debe ser un Nombre de 6 a 10 digitos\n");
-	printf ("b) Comenzar con una letra Minuscula\n");
-	printf ("c) Tener al menos dos letras Mayusculas\n");
-	printf ("d) Tener como Maximo tres Numeros");
+	vet.edad = 2020 - vet.fech.anio; 
 	
 	user(archVet, userAux);
 	strcpy(vet.Usuario,userAux);
 	
-	printf ("\tINGRESE UNA CONTRASENA PARA EL USUARIO %s\n\n",vet.ApeyNom);
-	printf ("Cosas a tener en cuenta al crear la contrasena\n\n");
-	printf ("a) Debe tener al menos una letra mayuscula, una minuscula, y un numero\n");
-	printf ("b) No puede contener caracteres especiales como puntos, acentos y espacios. Solo caracteres alfanumericos\n");
-	printf ("c) Debe tener entre 6 y 32 caracteres\n");
-	printf ("d) No debe tener mas de 3 caracteres numericos consecutivos\n");
-	printf ("e) No debe tener dos caracteres consecutivos de forma ascendente\n");
-	
 	password(archVet, passAux);
 	strcpy(vet.Contrasena, passAux);
-	
-	fwrite(&vet, sizeof(Veterinario), 1, archVet);
 	
 	/*do
 	{
@@ -238,4 +205,40 @@ void cargarVeterinario(FILE *archVet)
 			system ("pause");
 		}
 	}while (per.ValidarUsuario == false);*/
+}
+
+
+void AtencionVeterinario (FILE *ArchTurnos)
+{
+	char Lectura;
+	int Band = 0;
+	turnos T;
+	int matriculAux;
+	
+	system ("cls");
+	printf ("******************************************************");
+	printf ("\t* ATENCIONES QUE ESTAN REALIZANDO LOS VETERINARIOS *\n");
+	printf ("******************************************************\n\n");
+	rewind (ArchTurnos);
+	do
+	{
+		printf ("Ingrese la matricula del Veterinario: ");
+		scanf ("%d",&matriculAux);
+		fread (&Lectura,sizeof(turnos),1,ArchTurnos);
+		while (!feof(ArchTurnos))
+		{
+			if (matriculAux == T.MatriculaVet)
+			{
+				system ("cls");
+				printf ("\tEl Veterinario fue Encontrado\n");
+				printf ("\nMatricula del Veterinario: %d",T.MatriculaVet);
+				printf ("\nDNI del dueño: %d",T.DNI_dueno);
+				printf ("\nDetalles de la Atencion: %s\n\n",T.detalleAtencion);
+				Band = 1;
+				system ("pause");
+				break;
+			}
+			fread (&Lectura,sizeof(turnos),1,ArchTurnos); 
+		}
+	}while (Band == 0);
 }
