@@ -1,74 +1,61 @@
 
- #include "Estructuras.h"
+void cargaTurnos(FILE *ArchTurnos);
+void CargarMascotas(FILE *Mascotas);
+void ListarTurno (FILE *ArchTurnos);
 
-
-//char dibujarMenu();
-//void cargar(FILE *Mascotas);
-//void cargaTurnos(FILE *Turnos);
-//void ListarTurno (File *Turnos);
-
-
-  /*FILE *Mascotas = fopen("Marcostas.dat","a+b");
-  FILE *Turnos = fopen("Turnos.dat", "a+");
-  
-  
-  if (Mascotas==NULL){
-  	printf("El archivo no se pudo crear! Vuelva a intentarlo");
-  	return 0;
-  }
-  char opc;
-  do{
-  	opc=dibujarMenu;
-  	switch (opc){
-  		case 1:
-  			carga(arch);
-  			break;
-  			case 2:
-  				
-  			
-	  }
-  }*/
+char MenuAsistente(){
 	
+	int opc;
 	
+	do{
+		printf("\n\t*******************************************************************");
+		printf("\n\t\tModulo del asistente");
+		printf("\n\t*******************************************************************");
+		printf("\n 1 --> Iniciar Sesion");
+		printf("\n 2 --> Registrar Mascotas");
+		printf("\n 3 --> Registrar Turno");
+		printf("\n 4 --> Listado de atencion por veterinario y fecha");
+		printf("\n 5 --> Cerra la aplicacion");
+		printf("\n\t*******************************************************************");
+		printf("Ingrese la opcion deseada: \n");
+		scanf("%d", &opc);
+		
+		switch(opc){
+			case 1: 
+			break;
+			
+			case 2:
+			break;
+			
+			case 3: 
+			break;
+			
+			case 4:
+			break;
+		}
+	}while(opc != 5);
 	
-	
-	char dibujarMenu(){
-	
-	printf("\n\t*******************************************************************");
-	printf("\n\t\tModulo del asistente");
-	printf("\n\t*******************************************************************");
-	printf("\n 1 --> Iniciar Sesion");
-	printf("\n 2 --> Registrar Mascotas");
-	printf("\n 3 --> Registrar Turno");
-	printf("\n 4 --> Listado de atencion por veterinario y fecha");
-	printf("\n 5 --> Cerra la aplicacion");
-	printf("\n\t*******************************************************************");
-	printf("Ingrese la opcion deseada: \n");
-	char opc;
-	_flushall();
-	scanf("%c", &opc);
-	return opc;
 }
 
-
-
-	void carga(FILE *Mascotas){
-		Datosmascota Dm;
-	  //FILE *Mascotas = fopen("Marcostas.dat","a+b");
+void CargarMascotas(FILE *Mascotas){
+	
+	Datosmascota Dm;
 	 
 	 printf("\n\t*************************************************************************");
 	 printf("\n\t\tIncio del registro de la mascota:");
 	 printf("\n\t*************************************************************************");
      printf( "Ingrese el  nombre de la mascota:  \n");
-     scanf( "%s", &Dm.AyN );
+     _flushall();
+     gets(Dm.AyN);
      printf("Ingrese domicilio:\n");
-     scanf("%s", &Dm.domicilio);
+     gets(Dm.domicilio);
      printf("Ingrese la localidad:\n");
-     scanf("%d", &Dm.localidad);
+     gets(Dm.localidad);
      printf( "Ingrese el DNI:\n " );
        scanf( "%d", &Dm.DNI_dueno );
         printf( "El numero celular es:\n " );
-         scanf( "%d", &Dm.telefono );
+         _flushall();
+         gets(Dm.telefono);
          printf("Ingrese el peso del animal:\n");
          scanf("%d", &Dm.peso);
          printf("Ingrese la Fecha de nacimiento de la mascota:\n");
@@ -80,14 +67,14 @@
          scanf("%d", &Dm.f_mascota.anio);
          
          system("PAUSE"); 
-	fwrite (&Dm, sizeof (Dm), 1, Mascotas);
+	fwrite (&Dm, sizeof (Datosmascota), 1, Mascotas);
 	system("cls");
 	fclose(Mascotas);
 		
 }
 void cargaTurnos(FILE *ArchTurnos){
 	turnos T;
-	//FILE *Turnos = fopen("Turnos.dat", "r");
+
 	int resp=0,i;
 	printf("\n\t**************************************************************");
 	printf("\n\t Registro de Turnos");
@@ -99,66 +86,43 @@ void cargaTurnos(FILE *ArchTurnos){
 	scanf("%d", &T.f_turnos.mes);
 	printf("Ingrese el año:\n");
 	scanf("%d", &T.f_turnos.anio);
-	system("cls");
-	fread (&T, sizeof (T), 1, ArchTurnos);
+	printf("Ingrese la matricula del veterinario:");
+	_flushall();
+	gets(T.MatriculaVet);
+	printf("Ingrese el DNI del Dueño:");
+	scanf("%d", &T.DNI_dueno);
+    printf("Detalle la razon del turno:\n");
+    _flushall();
+	gets(T.detalleAtencion);
+	
+
+	printf("\n*******************************************************");
+	printf("\n\t\t El turno ha sido rservado con exito!");
+	printf("\n*******************************************************");
+	
+		
+}
+	
+void ListarTurno (FILE *ArchTurnos){
+	turnos T;
+	
+	fread(&T, sizeof(turnos),1,ArchTurnos);
 	
 	while(!feof(ArchTurnos)){
-		if(turnos.f_turnos.mes= turnos.f_turnos.dia && resp==0){
-			if(turnos.disponible ==0 && resp==0){
-				printf("\n*********************************************************");
-				printf("\n\t\t\tDatos del turno");
-				printf("\n*********************************************************");
-				  turnos.disponible=1;
-				  printf("Ingrese la matricula del veterinario:");
-	              scanf("%s" &T.MatriculaVet);
-	              printf("Ingrese el DNI del Dueño:");
-	              scanf("%d", &T.DNI_dueno);
-             	  printf("Detalle la razon del turno:\n");
-	              scanf("%s"&T.detalleAtencion);
-	              resp =1;
-			}
-		}
-		
-	}
-	
-	if (resp==1){
-		printf("\n*******************************************************");
-		printf("\n\t\t El turno ha sido rservado con exito!");
-		printf("\n*******************************************************");
-	}
-	else{
-		printf("\n*******************************************************");
-		printf("\n\t\t El dia ingresado no esta disponible");
-		printf("\n*******************************************************");
-	 
-	}
-
-	
-	
-}
-
-void ListarTurno (File *Turnos){
-	Turnos = fopen("Turnos.dat", "r");
-	Turnos T;
-	
-	fread(&T, sizeof(Turnos),1,Turnos);
-	
-	while(!feof(Turnos)){
-		if(!feof(Turnos)){
+		if(!feof(ArchTurnos)){
 			system("cls");
 	printf("\n**************************************************************");
 	printf("\n\t\t Lista de turnos");
 	printf("\n**************************************************************");
-	printf("Dia: %d", turnos.f_turnos.dia);
-	printf("Mes: %d", turnos.f_turnos.mes);
-	printf("Año: %d", turnos.f_turnos.anio);
+	printf("Dia: %d", T.f_turnos.dia);
+	printf("Mes: %d", T.f_turnos.mes);
+	printf("Año: %d", T.f_turnos.anio);
 	
-	fread(&T, sizeof(Turnos),1,Turnos)
+	fread(&T, sizeof(turnos),1,ArchTurnos);
 			
 		}
 	}
-	getch();
-	fclose(Turnos);
+	fclose(ArchTurnos);
 	system("cls");
 }
 	

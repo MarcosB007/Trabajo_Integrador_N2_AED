@@ -29,7 +29,7 @@ void menuAdministrador(FILE *archVet)
 			case 2:
 				break;
 			case 3:
-				AtencionVeterinario(ArchTurnos);
+				//AtencionVeterinario(ArchTurnos);
 				printf ("\n\n");
 				system ("pause");
 				break;
@@ -213,7 +213,7 @@ void AtencionVeterinario (FILE *ArchTurnos)
 	char Lectura;
 	int Band = 0;
 	turnos T;
-	int matriculAux;
+	char matriculAux[50];
 	
 	system ("cls");
 	printf ("******************************************************");

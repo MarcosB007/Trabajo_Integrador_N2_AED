@@ -37,7 +37,7 @@ void InicioSesion(FILE *usuario){
 	
 }
 
-void IndentificarVeterinario(FILE *Vet){
+void IndentificarVeterinario(FILE *Vet, bool &salida){
 	
 	cadena matricula, contr;
 	Veterinario lect;
@@ -60,6 +60,7 @@ void IndentificarVeterinario(FILE *Vet){
 			if(strcmp(lect.matricula,matricula) == 0){
 				if(strcmp(lect.Contrasena,contr) == 0){
 					b = true;
+					salida = true;
 					break;	
 				}
 			}

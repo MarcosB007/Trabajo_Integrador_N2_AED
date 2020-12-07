@@ -1,7 +1,7 @@
 #include "VerificarAdmin.h"
 #include "Modulo3.h"
 #include "Modulo_Consultorio.h"
-//#include "Modulo2.h"
+#include "Modulo2.h"
 
 int MenuPrincipal();
 void menuAdministrador(FILE *archVet);
