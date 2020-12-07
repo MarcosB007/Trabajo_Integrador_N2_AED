@@ -5,6 +5,8 @@ void menuConsultorio(FILE *veterinario)
 	int opc;
 	do
 	{
+		bool comprobante = false;
+		
 		system ("cls");
 		printf ("\t*************************************");
 		printf ("\n\t* MENU DE OPCIONES DEL CONSULTORIO *");
@@ -19,7 +21,7 @@ void menuConsultorio(FILE *veterinario)
 		switch (opc)
 		{
 			case 1:
-				   IndentificarVeterinario(veterinario);
+				   IndentificarVeterinario(veterinario, comprobante);
 				break;
 			case 2:
 				

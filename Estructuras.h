@@ -39,9 +39,8 @@ struct Datosmascota{
 };
 
 struct turnos{
- 	int MatriculaVet;
+ 	char MatriculaVet[50];
  	int DNI_dueno;
  	char detalleAtencion [380];
- 	int disponible;
  	fechas f_turnos;
  };
