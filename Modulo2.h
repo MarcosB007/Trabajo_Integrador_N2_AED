@@ -3,7 +3,7 @@ void cargaTurnos(FILE *ArchTurnos);
 void CargarMascotas(FILE *Mascotas);
 void ListarTurno (FILE *ArchTurnos);
 
-char MenuAsistente(){
+char MenuAsistente(FILE *ArchTurnos, FILE *Mascotas, FILE *usuario){
 	
 	int opc;
 	
@@ -20,19 +20,32 @@ char MenuAsistente(){
 		printf("Ingrese la opcion deseada: \n");
 		scanf("%d", &opc);
 		
+		int n=0;
+		bool comprobante = false;
 		switch(opc){
 			case 1: 
+				 	InicioSesion(usuario, n);
+				 	comprobante = true;
 			break;
-			
+					
 			case 2:
+				   if(comprobante == true){
+				  		CargarMascotas(Mascotas);
+					}
+					else printf("Primero debe iniciar sesion.");		
 			break;
-			
+  	
 			case 3: 
+				 	if(comprobante == true){
+				  		cargaTurnos(ArchTurnos);
+					}
+					else printf("Primero debe iniciar sesion.");
 			break;
 			
 			case 4:
 			break;
 		}
+		system("pause");
 	}while(opc != 5);
 	
 }
