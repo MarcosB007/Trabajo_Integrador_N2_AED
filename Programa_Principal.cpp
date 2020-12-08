@@ -5,7 +5,7 @@
 
 int MenuPrincipal();
 void menuAdministrador(FILE *archVet);
-//void menuConsultorio(FILE *archVet);
+
 
 bool verificar = false;
 
@@ -13,6 +13,9 @@ main()
 {
 	FILE *usuarios = fopen("Usuarios.dat","a+b");
 	FILE *veterinarios = fopen("Veterinarios.dat","a+b");
+	FILE *turnos = fopen("Turnos.dat","a+b");
+	FILE *mascotas = fopen("Mascotas.dat","a+b");
+	
 	char lectura;
 	
 	rewind(usuarios);
@@ -43,10 +46,11 @@ main()
 		
 		switch(opcion){
 			case 1:
-	 			   menuConsultorio(veterinarios);
+	 			   menuConsultorio(veterinarios, turnos, mascotas);
 			break;
 			
 			case 2:
+				   MenuAsistente(turnos, mascotas, usuarios);
 			break;
 			
 			case 3:	
