@@ -32,8 +32,8 @@ main()
 		verificar = true;
 	}
 	system("cls");
-	
-	InicioSesion(usuarios);
+	int n=1;
+	InicioSesion(usuarios, n);
 	
 	int opcion;
 	int opc;

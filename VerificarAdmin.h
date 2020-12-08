@@ -3,7 +3,7 @@
 void user(FILE *respArch, cadena &aux);
 void password(FILE *respArch, cadena &password);
 
-void InicioSesion(FILE *usuario){
+void InicioSesion(FILE *usuario, int num){
 	
 	cadena nombreUsuario, contr;
 	Usuarios lect;
@@ -21,10 +21,22 @@ void InicioSesion(FILE *usuario){
 		fread(&lect, sizeof(lect), 1, usuario);	   			
 		while(!feof(usuario)){
 			
-			if(strcmp(lect.nomUsuario,nombreUsuario) == 0){
-				if(strcmp(lect.contrasenia,contr) == 0){
-					b = true;
-					break;	
+			if(num == 1 && lect.admin == true){
+				
+				if(strcmp(lect.nomUsuario,nombreUsuario) == 0){
+					if(strcmp(lect.contrasenia,contr) == 0){
+						b = true;
+						break;	
+					}
+				}
+			}
+			if(num == 0 && lect.admin == false){
+				
+				if(strcmp(lect.nomUsuario,nombreUsuario) == 0){
+					if(strcmp(lect.contrasenia,contr) == 0){
+						b = true;
+						break;	
+					}
 				}
 			}
 			
