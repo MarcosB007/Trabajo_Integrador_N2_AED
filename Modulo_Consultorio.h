@@ -1,11 +1,12 @@
-void registrarVet(FILE *veterinario);
+void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A);
 
-void menuConsultorio(FILE *veterinario)
+void menuConsultorio(FILE *veterinario, FILE *archTurnos, FILE *archMascotas)
 {
 	int opc;
 	do
 	{
 		bool comprobante = false;
+		int D=0, M=0, A=0;
 		
 		system ("cls");
 		printf ("\t*************************************");
@@ -23,7 +24,16 @@ void menuConsultorio(FILE *veterinario)
 			case 1:
 				   IndentificarVeterinario(veterinario, comprobante);
 				break;
-			case 2:
+			case 2: if(comprobante == true){
+   				 		
+   				 		printf("\nIngrese la fecha de hoy para visualizar los turnos");
+   				 		printf("\nDia: ");
+   				 		scanf("%d", &D);
+						printf("\nMes: ");
+   				 		scanf("%d", &M);	
+						printf("\nAnio: ");
+   				 		scanf("%d", &A);		   
+				 	}
 				
 				break;
 			case 3:
@@ -41,21 +51,45 @@ void menuConsultorio(FILE *veterinario)
 	
 }
 
-void registrarVet(FILE *veterinario){
+void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A){
 	
-	cadena user, password;
+	turnos lectura;
+	Datosmascota lectMasct;
 	
-	printf("\nMatricula: ");
-		_flushall();
-		gets(user);
-		printf("Contrasenia: ");
-		gets(password);
-	rewind(veterinario);
+	rewind(archTurnos);
 	
+	fread(&lectura, sizeof(turnos), 1, archTurnos);
+	
+	while(!feof(archTurnos)){
+		
+		if(lectura.f_turnos.anio == A && lectura.f_turnos.mes == M && lectura.f_turnos.dia == D){
+			
+			rewind(archMascotas);
+			fread(&lectMasct, sizeof(Datosmascota), 1, archMascotas);
+			
+			while(!feof(archMascotas)){
+				
+				if(lectura.DNI_dueno == lectMasct.DNI_dueno){
+					
+					printf("Apellido y Nombre: %s", lectMasct.AyN);
+					printf("Domicilio: %s", lectMasct.domicilio);
+					printf("DNI: %d", lectMasct.DNI_dueno);
+					printf("Localidad: %s", lectMasct.localidad);
+					printf("Peso: %.2f", lectMasct.peso);
+					printf("Telefono: %s", lectMasct.telefono);
+					
+				}
+				
+				fread(&lectMasct, sizeof(Datosmascota), 1, archMascotas);
+			}
+			
+		}
+		
+		fread(&lectura, sizeof(turnos), 1, archTurnos);
+	}
 	
 	
 }
-
 
 
 
