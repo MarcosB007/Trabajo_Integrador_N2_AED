@@ -15,7 +15,7 @@ main()
 	FILE *veterinarios = fopen("Veterinarios.dat","a+b");
 	FILE *turnos = fopen("Turnos.dat","a+b");
 	FILE *mascotas = fopen("Mascotas.dat","a+b");
-	
+	int n=1;
 	char lectura;
 	
 	rewind(usuarios);
@@ -28,11 +28,10 @@ main()
 	}
 	
 	if(verificar == false){
- 		registrar(usuarios); 
+ 		registrar(usuarios, n); 
 		verificar = true;
 	}
 	system("cls");
-	int n=1;
 	InicioSesion(usuarios, n);
 	
 	int opcion;
@@ -54,7 +53,7 @@ main()
 			break;
 			
 			case 3:	
-				 	menuAdministrador(veterinarios);
+				 	menuAdministrador(veterinarios, usuarios);
 			break;
 		}
 		

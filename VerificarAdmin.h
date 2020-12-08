@@ -82,7 +82,7 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 	}while(b != false);
 }
 
-void registrar(FILE *usuario){
+void registrar(FILE *usuario, int num){
 	
 	cadena nombre, contr;
 	Usuarios admin, lectura;
@@ -112,7 +112,13 @@ void registrar(FILE *usuario){
 	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas");
 	password(usuario, contr);
 	strcpy(admin.contrasenia,contr);
-	admin.admin = true;
+	if(num == 1){
+		admin.admin = true;
+	}
+	else{
+		admin.admin = false;
+	}
+	
 		 
 	
 	fwrite(&admin, sizeof(admin), 1, usuario);
