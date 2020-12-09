@@ -2,6 +2,7 @@
 
 void user(FILE *respArch, cadena &aux);
 void password(FILE *respArch, cadena &password);
+void IndentificarVeterinario(FILE *Vet, bool &salida);
 
 void InicioSesion(FILE *usuario, int num){
 	
@@ -18,7 +19,7 @@ void InicioSesion(FILE *usuario, int num){
 		gets(contr);
 		
 		rewind(usuario);			
-		fread(&lect, sizeof(lect), 1, usuario);	   			
+		fread(&lect, sizeof(Usuarios), 1, usuario);	   			
 		while(!feof(usuario)){
 			
 			if(num == 1 && lect.admin == true){
@@ -40,7 +41,7 @@ void InicioSesion(FILE *usuario, int num){
 				}
 			}
 			
-			fread(&lect, sizeof(lect), 1, usuario);
+			fread(&lect, sizeof(Usuarios), 1, usuario);
 		}
 		if(b == false){
 			printf("Nombre de usuario o contrasenia incorrecto.");
@@ -54,10 +55,9 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 	cadena matricula, contr;
 	Veterinario lect;
 	
-	rewind(Vet);
-	
 	bool b = false;
 	do{
+		system("cls");
 		printf("\nINICIO DE SESION\n");
 		printf("\nMatricula: ");
 		_flushall();
@@ -65,7 +65,7 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 		printf("Contrasenia: ");
 		gets(contr);
 		
-					
+		rewind(Vet);			
 		fread(&lect, sizeof(lect), 1, Vet);	   			
 		while(!feof(Vet)){
 			
@@ -79,20 +79,22 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 			
 			fread(&lect, sizeof(lect), 1, Vet);
 		}
-	}while(b != false);
+		if(b == false){
+			printf("\nMatricula o contrasenia incorrecta. Vuelva a intentar");
+		}
+	}while(b != true);
 }
 
 void registrar(FILE *usuario, int num){
 	
 	cadena nombre, contr;
-	Usuarios admin, lectura;
-	int longitud, contadorMayus=0, contadorNum=0;
+	Usuarios lectura;
 	bool bandera = false;
 		
 	printf("\nREGISTRARSE\n");
 	printf("\nNombre y Apellido: ");
 	_flushall();
-	gets(admin.Apellido_Y_Nombre);
+	gets(lectura.Apellido_Y_Nombre);
 	
 	printf("\nNombre de Usuario: ");
 	printf("\nAVISOS IMPORTANTES!\n");
@@ -101,7 +103,7 @@ void registrar(FILE *usuario, int num){
 	printf("\nTener al menos 2 letras mayusculas");
 	printf("\nTener como maximo 3 digitos");
 	user(usuario, nombre);
-	strcpy(admin.nomUsuario, nombre);
+	strcpy(lectura.nomUsuario, nombre);
 	
  	printf("\nContrasenia: ");
 	printf("\nAVISOS IMPORTANTES!\n");
@@ -111,17 +113,15 @@ void registrar(FILE *usuario, int num){
 	printf("\nNo debe tener mas de 3 caracteres numericos consecutivos. ");
 	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas");
 	password(usuario, contr);
-	strcpy(admin.contrasenia,contr);
+	strcpy(lectura.contrasenia,contr);
 	if(num == 1){
-		admin.admin = true;
+		lectura.admin = true;
 	}
 	else{
-		admin.admin = false;
+		lectura.admin = false;
 	}
 	
-		 
-	
-	fwrite(&admin, sizeof(admin), 1, usuario);
+	fwrite(&lectura, sizeof(Usuarios), 1, usuario);
 }
 
 void user(FILE *respArch, cadena &aux){

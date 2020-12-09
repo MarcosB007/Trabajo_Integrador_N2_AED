@@ -63,10 +63,11 @@ void cargarVeterinario(FILE *archVet)
 	printf ("Apellido y Nombre: ");
 	_flushall();
 	gets (vet.ApeyNom);
-	//printf ("Edad: ");
-	//scanf ("%d",&per.edad);
 	printf ("DNI: ");
 	scanf ("%d",&vet.DNI);
+	printf("Matricula: ");
+	_flushall();
+	gets (vet.matricula);
 	printf ("\nIngrese la fecha de Nacimiento\n\n");
 	printf ("Dia: ");
 	scanf ("%d",&vet.fech.dia);
@@ -82,13 +83,14 @@ void cargarVeterinario(FILE *archVet)
 	password(archVet, passAux);
 	strcpy(vet.Contrasena, passAux);
 	
+	fwrite(&vet, sizeof(Veterinario), 1, archVet);
+	
 }
 
 void cargarUsuarioAsistente(FILE *usuarios){
 	
 	int n=0;
 	registrar(usuarios, n);
-	
 }
 
 void AtencionVeterinario (FILE *ArchTurnos)
