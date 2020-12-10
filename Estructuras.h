@@ -1,6 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
 
 typedef char cadena[50];
 
@@ -24,7 +21,7 @@ struct Veterinario
 	char matricula[50];
 	int edad;
 	int DNI;
-	bool ValidarUsuario = false;
+	bool ValidarUsuario;
 	fechas fech;
 };
 
