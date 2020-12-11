@@ -3,53 +3,6 @@ void cargaTurnos(FILE *ArchTurnos);
 void CargarMascotas(FILE *Mascotas);
 void ListarTurno (FILE *ArchTurnos);
 
-char MenuAsistente(FILE *ArchTurnos, FILE *Mascotas, FILE *usuario){
-	
-	int opc;
-	
-	do{
-		printf("\n\t*******************************************************************");
-		printf("\n\t\tModulo del asistente");
-		printf("\n\t*******************************************************************");
-		printf("\n 1 --> Iniciar Sesion");
-		printf("\n 2 --> Registrar Mascotas");
-		printf("\n 3 --> Registrar Turno");
-		printf("\n 4 --> Listado de atencion por veterinario y fecha");
-		printf("\n 5 --> Cerra la aplicacion");
-		printf("\n\t*******************************************************************");
-		printf("Ingrese la opcion deseada: \n");
-		scanf("%d", &opc);
-		
-		int n=0;
-		bool comprobante = false;
-		switch(opc){
-			case 1: 
-				 	InicioSesion(usuario, n);
-				 	comprobante = true;
-			break;
-					
-			case 2:
-				   if(comprobante == true){
-				  		CargarMascotas(Mascotas);
-					}
-					else printf("Primero debe iniciar sesion.");		
-			break;
-  	
-			case 3: 
-				 	if(comprobante == true){
-				  		cargaTurnos(ArchTurnos);
-					}
-					else printf("Primero debe iniciar sesion.");
-			break;
-			
-			case 4:
-			break;
-		}
-		system("pause");
-	}while(opc != 5);
-	
-}
-
 void CargarMascotas(FILE *Mascotas){
 	
 	Datosmascota Dm;
@@ -107,7 +60,7 @@ void cargaTurnos(FILE *ArchTurnos){
     printf("Detalle la razon del turno:\n");
     _flushall();
 	gets(T.detalleAtencion);
-	
+	fwrite(&T, sizeof(turnos), 1, ArchTurnos);
 
 	printf("\n*******************************************************");
 	printf("\n\t\t El turno ha sido rservado con exito!");
