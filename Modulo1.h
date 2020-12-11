@@ -1,9 +1,10 @@
 #include "Estructuras.h"
 
-void IndentificarVeterinario(FILE *Vet, bool &salida);
+void IndentificarVeterinario(FILE *Vet, char vet[50]);
 void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A);
+void atenderMascota(FILE *archMascotas, char nombreApellido, bool &bandera);
 
-void IndentificarVeterinario(FILE *Vet, bool &salida){
+void IndentificarVeterinario(FILE *Vet, char vet[50]){
 	
 	cadena matricula, contr;
 	Veterinario lect;
@@ -25,7 +26,7 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 			if(strcmp(lect.matricula,matricula) == 0){
 				if(strcmp(lect.Contrasena,contr) == 0){
 					b = true;
-					salida = true;
+					strcpy(vet,lect.matricula);
 					break;	
 				}
 			}
@@ -57,14 +58,15 @@ void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A){
 			while(!feof(archMascotas)){
 				
 				if(lectura.DNI_dueno == lectMasct.DNI_dueno){
-					
-					printf("\nApellido y Nombre: %s", lectMasct.AyN);
-					printf("\nDomicilio: %s", lectMasct.domicilio);
-					printf("\nDNI: %d", lectMasct.DNI_dueno);
-					printf("\nLocalidad: %s", lectMasct.localidad);
-					printf("\nPeso: %.2f", lectMasct.peso);
-					printf("\nTelefono: %s\n", lectMasct.telefono);
-					
+					if(lectMasct.atendido == false){
+						
+						printf("\nApellido y Nombre: %s", lectMasct.AyN);
+						printf("\nDomicilio: %s", lectMasct.domicilio);
+						printf("\nDNI: %d", lectMasct.DNI_dueno);
+						printf("\nLocalidad: %s", lectMasct.localidad);
+						printf("\nPeso: %.2f", lectMasct.peso);
+						printf("\nTelefono: %s\n", lectMasct.telefono);			  	
+					}
 				}
 				
 				fread(&lectMasct, sizeof(Datosmascota), 1, archMascotas);
@@ -74,9 +76,35 @@ void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A){
 		
 		fread(&lectura, sizeof(turnos), 1, archTurnos);
 	}
+}
+
+void atenderMascota(FILE *archMascotas, char nombreApellido[50], bool &bandera){
 	
+	rewind(archMascotas);
+	Datosmascota mascota;
+	
+	fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
+	while(!feof(archMascotas)){
+		
+		if(strcmp(mascota.AyN, nombreApellido) == 0){
+			mascota.atendido = true;
+			bandera = true;
+			break;
+		}
+		
+		fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
+	}
+	
+	if(bandera == false){
+		printf("\nEl nombre de la mascota ingresado no tiene turno para este dia.\n");
+	}
+	
+	fwrite(&mascota, sizeof(Datosmascota), 1, archMascotas);
+	printf("Mascota atendida.");
 	
 }
+
+
 
 
 

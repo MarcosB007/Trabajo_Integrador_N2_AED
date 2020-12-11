@@ -15,6 +15,9 @@ main()
 	int opcion;
 	int opc, D, M, A;
 	bool verificar = false;
+	bool bandera = false;
+	char ApeNomMascota[50];
+	char veterinarioAtendiendo[50];
 	
 	do{
 	   
@@ -22,7 +25,8 @@ main()
 		
 		switch(opcion){
 			case 1:
-   				   IndentificarVeterinario(veterinarios, verificar);
+   				   IndentificarVeterinario(veterinarios, veterinarioAtendiendo);
+   				   verificar = true;
 			break;
 			
 			case 2:
@@ -36,6 +40,17 @@ main()
 						printf("\nAnio: ");
    				 		scanf("%d", &A);
 				   		ListarTurnos(turnos, mascotas, D, M, A);
+				   		
+				   		do{
+				   			
+							printf("\nLlamado a una mascota");
+							printf("\nIngrese el nombre y apellido de la mascota a atender: ");
+							_flushall();
+							gets(ApeNomMascota);
+							atenderMascota(mascotas, ApeNomMascota, bandera);
+						
+						}while(bandera != true);
+			   			
 				   }
 				   else{
 				   	printf("Debe iniciar sesion.");
