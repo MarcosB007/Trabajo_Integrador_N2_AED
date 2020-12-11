@@ -31,6 +31,7 @@ void CargarMascotas(FILE *Mascotas){
          scanf("%d", &Dm.f_mascota.mes);
          printf("Ingrese el año:\n");
          scanf("%d", &Dm.f_mascota.anio);
+         Dm.atendido = false;
          
          system("PAUSE"); 
 	fwrite (&Dm, sizeof (Datosmascota), 1, Mascotas);
