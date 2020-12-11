@@ -58,12 +58,12 @@ void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A){
 				
 				if(lectura.DNI_dueno == lectMasct.DNI_dueno){
 					
-					printf("Apellido y Nombre: %s", lectMasct.AyN);
-					printf("Domicilio: %s", lectMasct.domicilio);
-					printf("DNI: %d", lectMasct.DNI_dueno);
-					printf("Localidad: %s", lectMasct.localidad);
-					printf("Peso: %.2f", lectMasct.peso);
-					printf("Telefono: %s", lectMasct.telefono);
+					printf("\nApellido y Nombre: %s", lectMasct.AyN);
+					printf("\nDomicilio: %s", lectMasct.domicilio);
+					printf("\nDNI: %d", lectMasct.DNI_dueno);
+					printf("\nLocalidad: %s", lectMasct.localidad);
+					printf("\nPeso: %.2f", lectMasct.peso);
+					printf("\nTelefono: %s\n", lectMasct.telefono);
 					
 				}
 				
