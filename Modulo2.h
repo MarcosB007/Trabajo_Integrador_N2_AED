@@ -1,5 +1,5 @@
 
-void cargaTurnos(FILE *ArchTurnos);
+void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario);
 void CargarMascotas(FILE *Mascotas);
 void ListarTurno (FILE *ArchTurnos);
 
@@ -10,7 +10,7 @@ void CargarMascotas(FILE *Mascotas){
 	 printf("\n\t*************************************************************************");
 	 printf("\n\t\tIncio del registro de la mascota:");
 	 printf("\n\t*************************************************************************");
-     printf( "Ingrese el  nombre de la mascota:  \n");
+     printf( "\nIngrese el  nombre de la mascota:  \n");
      _flushall();
      gets(Dm.AyN);
      printf("Ingrese domicilio:\n");
@@ -38,10 +38,11 @@ void CargarMascotas(FILE *Mascotas){
 	fclose(Mascotas);
 		
 }
-void cargaTurnos(FILE *ArchTurnos){
+void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario){
 	turnos T;
-	char Lectura;
+	Veterinario vet;
     char matriculAux[50];
+    bool bandera = false;
 	
 	printf("\n\t**************************************************************");
 	printf("\n\t Registro de Turnos");
@@ -49,22 +50,32 @@ void cargaTurnos(FILE *ArchTurnos){
 	
 	do{
 		
-		printf("Ingrese la matricula del veterinario:");
-		scanf("%d",&matriculAux);
-		fread (&Lectura,sizeof(turnos),1,ArchTurnos);
-		while(!feof(ArchTurnos)){
-			if (matriculAux == T.MatriculaVet){
-				system("cls");
-				printf("Matricula correcta\n");
-				system("pause");
+		printf("\nIngrese la matricula del veterinario:");
+		_flushall();
+		gets(matriculAux);
+		
+		rewind(ArchVeterinario);
+		fread (&vet,sizeof(Veterinario), 1, ArchVeterinario);
+		
+		while(!feof(ArchVeterinario)){
+			if (strcmp(vet.matricula, matriculAux) == 0){
+				
+				strcpy(T.MatriculaVet, vet.matricula);
+				
+				bandera = true;
 				break;
 			}
+			fread (&vet,sizeof(Veterinario), 1, ArchVeterinario);
 		}
-	
-		} while("Matricula Incorrecta");
+		if(bandera == false){
+			printf("\nEste numero de matricula no existe. Vuelva a intentar\n");
+		}
+		system("pause");
+		system("cls");
+	}while(bandera != true);
 		
-		printf("Ingrese la fecha del turno");
-	printf("Ingrese el dia:\n");
+	printf("\nIngrese la fecha del turno");
+	printf("\nIngrese el dia:\n");
 	scanf("%d", &T.f_turnos.dia);
 	printf("Ingrese el mes:\n");
 	scanf("%d", &T.f_turnos.mes);
@@ -81,7 +92,7 @@ void cargaTurnos(FILE *ArchTurnos){
 	printf("\n\t\t El turno ha sido rservado con exito!");
 	printf("\n*******************************************************");
 	
-	}
+}
 	
 		
 
