@@ -45,6 +45,16 @@ void cargaTurnos(FILE *ArchTurnos){
 	printf("\n\t**************************************************************");
 	printf("\n\t Registro de Turnos");
 	printf("\n\t**************************************************************");
+	do{
+		MatriculaCorrec=true;
+		printf("Ingrese la matricula del veterinario:");
+		scanf("%d",&T.MatriculaVet);
+		if(VerificarMat(T.MatriculaVet)){
+			printf("La matricula no corresponde a un veterinario registrado");
+			MatriculaCorrec=false;
+			getch();
+		}
+	}while((!MatriculaCorrec));
 	printf("Ingrese la fecha del turno");
 	printf("Ingrese el dia:\n");
 	scanf("%d", &T.f_turnos.dia);
@@ -52,9 +62,6 @@ void cargaTurnos(FILE *ArchTurnos){
 	scanf("%d", &T.f_turnos.mes);
 	printf("Ingrese el año:\n");
 	scanf("%d", &T.f_turnos.anio);
-	printf("Ingrese la matricula del veterinario:");
-	_flushall();
-	gets(T.MatriculaVet);
 	printf("Ingrese el DNI del Dueño:");
 	scanf("%d", &T.DNI_dueno);
     printf("Detalle la razon del turno:\n");
@@ -80,6 +87,7 @@ void ListarTurno (FILE *ArchTurnos){
 	printf("\n**************************************************************");
 	printf("\n\t\t Lista de turnos");
 	printf("\n**************************************************************");
+	printf("Matricula del veterinario:%d\n",T.MatriculaVet);
 	printf("Dia: %d", T.f_turnos.dia);
 	printf("Mes: %d", T.f_turnos.mes);
 	printf("Año: %d", T.f_turnos.anio);
