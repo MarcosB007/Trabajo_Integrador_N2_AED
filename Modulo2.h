@@ -40,22 +40,30 @@ void CargarMascotas(FILE *Mascotas){
 }
 void cargaTurnos(FILE *ArchTurnos){
 	turnos T;
-
-	int resp=0,i;
+	char Lectura;
+    char matriculAux[50];
+	
 	printf("\n\t**************************************************************");
 	printf("\n\t Registro de Turnos");
 	printf("\n\t**************************************************************");
+	
 	do{
-		MatriculaCorrec=true;
+		
 		printf("Ingrese la matricula del veterinario:");
-		scanf("%d",&T.MatriculaVet);
-		if(VerificarMat(T.MatriculaVet)){
-			printf("La matricula no corresponde a un veterinario registrado");
-			MatriculaCorrec=false;
-			getch();
+		scanf("%d",&matriculAux);
+		fread (&Lectura,sizeof(turnos),1,ArchTurnos);
+		while(!feof(ArchTurnos)){
+			if (matriculAux == T.MatriculaVet){
+				system("cls");
+				printf("Matricula correcta\n");
+				system("pause");
+				break;
+			}
 		}
-	}while((!MatriculaCorrec));
-	printf("Ingrese la fecha del turno");
+	
+		} while("Matricula Incorrecta");
+		
+		printf("Ingrese la fecha del turno");
 	printf("Ingrese el dia:\n");
 	scanf("%d", &T.f_turnos.dia);
 	printf("Ingrese el mes:\n");
@@ -73,8 +81,10 @@ void cargaTurnos(FILE *ArchTurnos){
 	printf("\n\t\t El turno ha sido rservado con exito!");
 	printf("\n*******************************************************");
 	
+	}
+	
 		
-}
+
 	
 void ListarTurno (FILE *ArchTurnos){
 	turnos T;
