@@ -32,24 +32,7 @@ main()
 			case 2:
 				   if(verificar == true){
 				   		
-				   		printf("\nIngrese la fecha de hoy para visualizar los turnos");
-   				 		printf("\nDia: ");
-   				 		scanf("%d", &D);
-						printf("\nMes: ");
-   				 		scanf("%d", &M);	
-						printf("\nAnio: ");
-   				 		scanf("%d", &A);
-				   		ListarTurnos(turnos, mascotas, D, M, A);
-				   		
-				   		do{
-				   			
-							printf("\nLlamado a una mascota");
-							printf("\nIngrese el nombre y apellido de la mascota a atender: ");
-							_flushall();
-							gets(ApeNomMascota);
-							atenderMascota(mascotas, ApeNomMascota, bandera);
-						
-						}while(bandera != true);
+				   		ListarTurnos(turnos);
 			   			
 				   }
 				   else{
@@ -58,7 +41,14 @@ main()
 			break;
 			
 			case 3:	
-				 	
+				 	if(verificar == true){
+				   		
+				   		evolucionMascota(mascotas, turnos);
+			   			
+				   }
+				   else{
+				   	printf("Debe iniciar sesion.");
+				   }
 			break;
 		}
 		printf("\n");
