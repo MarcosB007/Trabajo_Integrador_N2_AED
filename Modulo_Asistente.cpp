@@ -18,7 +18,7 @@ main()
 	bool verificar = false;
 	
 	do{
-	   
+	   system("cls");
 		opcion = MenuPrincipal();
 		
 		switch(opcion){
