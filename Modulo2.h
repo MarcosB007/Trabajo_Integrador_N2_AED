@@ -1,5 +1,5 @@
 
-void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario);
+void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *arcMascotas);
 void CargarMascotas(FILE *Mascotas);
 void ListarTurno (FILE *ArchTurnos);
 
@@ -43,11 +43,12 @@ void CargarMascotas(FILE *Mascotas){
 	Mascotas = fopen("Mascotas.dat","a+b");
 		
 }
-void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario){
+void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 	turnos T;
 	Veterinario vet;
+	Datosmascota mascota;
     char matriculAux[50];
-    bool bandera = false;
+    bool bandera = false, b = false;
 	system("cls");
 	printf("\n\t**************************************************************");
 	printf("\n\t\t\t\t\tRegistro de Turnos");
@@ -77,28 +78,47 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario){
 		}
 		system("pause");
 		system("cls");
-	}while(bandera != true);
 		
-	printf("\nIngrese la fecha del turno");
-	printf("\nIngrese el dia:");
-	scanf("%d", &T.f_turnos.dia);
-	printf("\nIngrese el mes:");
-	scanf("%d", &T.f_turnos.mes);
-	printf("\nIngrese el año:");
-	scanf("%d", &T.f_turnos.anio);
-	printf("\nIngrese el DNI del Dueño:");
-	scanf("%d", &T.DNI_dueno);
-	T.turnoAtendido = false;
-	fwrite(&T, sizeof(turnos), 1, ArchTurnos);
+	}while(bandera != true);
+	
+	
+	do{
+		printf("\nIngrese el DNI del Duenio de la mascota:");
+		scanf("%d", &T.DNI_dueno);
+	
+		rewind(archMascotas);
+		fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
+	
+		while(!feof(archMascotas)){
+		
+			if(T.DNI_dueno == mascota.DNI_dueno){
+				
+				printf("\nIngrese la fecha del turno");
+				printf("\nIngrese el dia:");
+				scanf("%d", &T.f_turnos.dia);
+				printf("\nIngrese el mes:");
+				scanf("%d", &T.f_turnos.mes);
+				printf("\nIngrese el año:");
+				scanf("%d", &T.f_turnos.anio);
+				T.turnoAtendido = false;
+				fwrite(&T, sizeof(turnos), 1, ArchTurnos);
+				b = true;
+			}
+			fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
+		}
+		
+		if(b == false){
+			printf("Este numero de DNI no esta registrado. ");
+		}
+		
+	}while(bandera != true);
+	fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
 
 	printf("\n*******************************************************");
 	printf("\n\t\t El turno ha sido rservado con exito!");
 	printf("\n*******************************************************");
 	
 }
-	
-		
-
 	
 void ListarTurno (FILE *ArchTurnos){
 	system("cls");
