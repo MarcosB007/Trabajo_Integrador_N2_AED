@@ -44,13 +44,24 @@ main()
 				  		printf("Debe iniciar sesion.");
 				  	}
 			break;
+			case 4:
+			if(verificar == true){
+				ListarTurno(turnos);
+			}
+			else{
+				printf("Debe iniciar sesion.");
+			}
+			break;
+			case 5:
+				printf("Saliendo del modulo");
+				break;
 		}
+		
 		printf("\n");
 		system("pause");
 		
-	}while(opcion !=4);
+	}while(opcion !=5);
 	
-
 	
 	fclose(usuarios);
 	system("\n\npause");
@@ -61,13 +72,13 @@ int MenuPrincipal(){
 		int opc;
 		system ("cls");
 		printf("\n\t*******************************************************************");
-		printf("\n\t\tModulo del asistente");
+		printf("\n\t\t\t\tModulo del asistente");
 		printf("\n\t*******************************************************************");
 		printf("\n 1 --> Iniciar Sesion");
 		printf("\n 2 --> Registrar Mascotas");
 		printf("\n 3 --> Registrar Turno");
 		printf("\n 4 --> Listado de atencion por veterinario y fecha");
-		printf("\n 5 --> Cerra la aplicacion");
+		printf("\n 5 --> Cerrar modulo");
 		printf("\n\t*******************************************************************");
 		printf("\nIngrese la opcion deseada:");
 		scanf ("%d",&opc);
