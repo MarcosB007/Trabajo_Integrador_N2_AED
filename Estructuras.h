@@ -33,7 +33,6 @@ struct Datosmascota{
 	float peso;
 	char telefono[25];
 	fechas f_mascota;
-	bool atendido;
 };
 
 struct turnos{
@@ -41,4 +40,5 @@ struct turnos{
  	int DNI_dueno;
  	char detalleAtencion [380];
  	fechas f_turnos;
+	bool turnoAtendido;
  };
