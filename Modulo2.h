@@ -20,7 +20,7 @@ void CargarMascotas(FILE *Mascotas){
      gets(Dm.domicilio);
      printf("\nIngrese la localidad:");
      gets(Dm.localidad);
-     printf( "\nIngrese el DNI del dueño: " );
+     printf( "\nIngrese el DNI del dueno: " );
        scanf( "%d", &Dm.DNI_dueno );
         printf( "\nEl numero celular es:" );
          _flushall();
@@ -101,27 +101,28 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario){
 
 	
 void ListarTurno (FILE *ArchTurnos){
-	turnos T;
 	system("cls");
-	fread(&T, sizeof(turnos),1,ArchTurnos);
+	printf("\n*******************************************************");
+	printf("\n\t\t\tLISTADO DE TURNOS\n");
+	printf("\n*******************************************************");
+	turnos T;
+	
+	rewind(ArchTurnos);
+	
+	fread(&T, sizeof(turnos), 1, ArchTurnos);
 	
 	while(!feof(ArchTurnos)){
-		if(!feof(ArchTurnos)){
-			system("cls");
-	printf("\n**************************************************************");
-	printf("\n\t\t Lista de turnos");
-	printf("\n**************************************************************");
-	printf("\nMatricula del veterinario:%d",T.MatriculaVet);
-	printf("\nDia: %d", T.f_turnos.dia);
-	printf("\nMes: %d", T.f_turnos.mes);
-	printf("\nAño: %d", T.f_turnos.anio);
-	
-	fread(&T, sizeof(turnos),1,ArchTurnos);
 			
+		if(T.turnoAtendido == false){
+			
+			printf("\nMatricula del veterinario: %s", T.MatriculaVet);
+			printf("\nFecha:\n");
+			printf("Dia:%d", T.f_turnos.dia);
+			printf("Mes:%d", T.f_turnos.mes);
+			printf("Anio:%d", T.f_turnos.anio);
 		}
+		
+		fread(&T, sizeof(turnos), 1, ArchTurnos);
 	}
-	fclose(ArchTurnos);
-	system("cls");
 }
-	
 	
