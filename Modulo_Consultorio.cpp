@@ -7,9 +7,8 @@ int MenuPrincipal();
 
 main()
 {
-	FILE *usuarios = fopen("Usuarios.dat","a+b");
 	FILE *veterinarios = fopen("Veterinarios.dat","a+b");
-	FILE *turnos = fopen("Turnos.dat","a+b");
+	FILE *turno = fopen("Turnos.dat","a+b");
 	FILE *mascotas = fopen("Mascotas.dat","a+b");
 	
 	int opcion;
@@ -18,6 +17,7 @@ main()
 	bool bandera = false;
 	char ApeNomMascota[50];
 	char veterinarioAtendiendo[50];
+	turnos t;
 	
 	do{
 	   
@@ -32,24 +32,7 @@ main()
 			case 2:
 				   if(verificar == true){
 				   		
-				   		printf("\nIngrese la fecha de hoy para visualizar los turnos");
-   				 		printf("\nDia: ");
-   				 		scanf("%d", &D);
-						printf("\nMes: ");
-   				 		scanf("%d", &M);	
-						printf("\nAnio: ");
-   				 		scanf("%d", &A);
-				   		ListarTurnos(turnos, mascotas, D, M, A);
-				   		
-				   		do{
-				   			
-							printf("\nLlamado a una mascota");
-							printf("\nIngrese el nombre y apellido de la mascota a atender: ");
-							_flushall();
-							gets(ApeNomMascota);
-							atenderMascota(mascotas, ApeNomMascota, bandera);
-						
-						}while(bandera != true);
+				   		ListarTurnos(turno);
 			   			
 				   }
 				   else{
@@ -58,7 +41,24 @@ main()
 			break;
 			
 			case 3:	
-				 	
+				 	if(verificar == true){
+				   		
+				   		evolucionMascota(mascotas, turno);
+			   			
+						/*rewind(turno);
+				   		fread(&t, sizeof(turnos), 1, turno);
+						while(!feof(turno)){
+						if(t.turnoAtendido == true){
+							printf("\nmuestra: %s", t.detalleAtencion);
+						}
+						
+						fread(&t, sizeof(turnos), 1, turno);
+						system("pause");
+						}*/
+				   }
+				   else{
+				   	printf("Debe iniciar sesion.");
+				   }
 			break;
 		}
 		printf("\n");
@@ -68,7 +68,9 @@ main()
 	
 
 	
-	fclose(usuarios);
+	fclose(veterinarios);
+	fclose(turno);
+	fclose(mascotas);
 	system("\n\npause");
 }
 

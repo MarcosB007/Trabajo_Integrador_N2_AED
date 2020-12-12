@@ -4,7 +4,7 @@ void user(FILE *usuario, cadena &aux);
 void password(FILE *usuario, cadena &password);
 
 
-void AtencionVeterinario(FILE *ArchTurnos)
+void AtencionVeterinario(FILE *veterinarios) //aqui
 {
 	char Lectura;
 	int Band = 0;
@@ -12,18 +12,19 @@ void AtencionVeterinario(FILE *ArchTurnos)
 	char matriculAux[50];
 	
 	system ("cls");
-	printf ("******************************************************");
+	printf ("\t****************************************************\n");
 	printf ("\t* ATENCIONES QUE ESTAN REALIZANDO LOS VETERINARIOS *\n");
-	printf ("******************************************************\n\n");
-	rewind (ArchTurnos);
+	printf ("\t****************************************************\n\n");
+	rewind (veterinarios);
 	do
 	{
 		printf ("Ingrese la matricula del Veterinario: ");
-		scanf ("%d",&matriculAux);
-		fread (&Lectura,sizeof(turnos),1,ArchTurnos);
-		while (!feof(ArchTurnos))
+		_flushall();
+		gets (matriculAux);
+		fread (&Lectura,sizeof(turnos),1,veterinarios);
+		while (!feof(veterinarios))
 		{
-			if (matriculAux == T.MatriculaVet)
+			if (strcmp(matriculAux,T.MatriculaVet) == 0)
 			{
 				system ("cls");
 				printf ("\tEl Veterinario fue Encontrado\n");
@@ -34,7 +35,7 @@ void AtencionVeterinario(FILE *ArchTurnos)
 				system ("pause");
 				break;
 			}
-			fread (&Lectura,sizeof(turnos),1,ArchTurnos); 
+			fread (&Lectura,sizeof(turnos),1,veterinarios); 
 		}
 	}while (Band == 0);
 }
@@ -79,13 +80,15 @@ void InicioSesion(FILE *usuario, int num){
 			fread(&lect, sizeof(Usuarios), 1, usuario);
 		}
 		if(b == false){
-			printf("Nombre de usuario o contrasenia incorrecto.");
+			printf("\nNombre de usuario o contrasenia incorrecto.Vuelva a intentarlo...\n\n");
+			system ("pause");
+			system ("cls");
 		}
 	}while(b != true);
 	
 }
 
-void IndentificarVeterinario(FILE *Vet, bool &salida){
+void IndentificarVeterinario(FILE *veterinarios, bool &salida){
 	
 	cadena matricula, contr;
 	Veterinario lect;
@@ -100,9 +103,9 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 		printf("Contrasenia: ");
 		gets(contr);
 		
-		rewind(Vet);			
-		fread(&lect, sizeof(lect), 1, Vet);	   			
-		while(!feof(Vet)){
+		rewind(veterinarios);			
+		fread(&lect, sizeof(lect), 1, veterinarios);	   			
+		while(!feof(veterinarios)){
 			
 			if(strcmp(lect.matricula,matricula) == 0){
 				if(strcmp(lect.Contrasena,contr) == 0){
@@ -112,7 +115,7 @@ void IndentificarVeterinario(FILE *Vet, bool &salida){
 				}
 			}
 			
-			fread(&lect, sizeof(lect), 1, Vet);
+			fread(&lect, sizeof(lect), 1, veterinarios);
 		}
 		if(b == false){
 			printf("\nMatricula o contrasenia incorrecta. Vuelva a intentar");
@@ -126,28 +129,31 @@ void registrar(FILE *usuario, int num){
 	
 	cadena nombre, contr;
 	Usuarios lectura;
-		
+	system ("cls");
 	printf("\nREGISTRARSE\n");
 	printf("\nNombre y Apellido: ");
 	_flushall();
 	gets(lectura.Apellido_Y_Nombre);
 	
-	printf("\nNombre de Usuario: ");
-	printf("\nAVISOS IMPORTANTES!\n");
-	printf("\nEl nombre de usuario debe tener entre 6 y 10 caracteres");
-	printf("\nDebe comenzar con una letra minuscula");
-	printf("\nTener al menos 2 letras mayusculas");
-	printf("\nTener como maximo 3 digitos");
+	system ("cls");
+	printf ("\tNOMBRE DE USUARIO:\n");
+	printf("\n\tAVISOS IMPORTANTES!\n\n");
+	printf("\na) El nombre de usuario debe tener entre 6 y 10 caracteres");
+	printf("\nb) Debe comenzar con una letra minuscula");
+	printf("\nc) Tener al menos 2 letras mayusculas");
+	printf("\nd) Tener como maximo 3 digitos\n");
 	user(usuario, nombre);
 	strcpy(lectura.nomUsuario, nombre);
-	
- 	printf("\nContrasenia: ");
-	printf("\nAVISOS IMPORTANTES!\n");
-	printf("\nDebera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
-	printf("\nNo podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
-	printf("\nDebera tener entre 6 y 32 caracteres");
-	printf("\nNo debe tener mas de 3 caracteres numericos consecutivos. ");
-	printf("\nNo debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas");
+	printf ("\nUsuario Creado...\n\n");
+	system ("pause");
+	system ("cls");
+ 	printf("\tCREAR CONTRASEÑA:\n");
+	printf("\n\tAVISOS IMPORTANTES!\n\n");
+	printf("\na)Debera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
+	printf("\nb)No podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
+	printf("\nc)Debera tener entre 6 y 32 caracteres");
+	printf("\nd)No debe tener mas de 3 caracteres numericos consecutivos. ");
+	printf("\ne)No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas\n");
 	password(usuario, contr);
 	strcpy(lectura.contrasenia,contr);
 	if(num == 1){
@@ -163,88 +169,104 @@ void registrar(FILE *usuario, int num){
 
 void user(FILE *usuario, cadena &aux){
 	
-	int longitud, contadorMayus=0, contadorNum=0;
+	
 	bool bandera = false;
 	
 	do{
+		int longitud, contadorMayus=0, contadorNum=0;
 		printf("\nIngrese su nombre de usuario: ");
 		gets(aux);
 		longitud = strlen(aux);
-		if(longitud > 5 && longitud < 11){
 		
-			if(aux[0] > 97 && aux[0] < 123){
-				
-				for(int i=0; i<strlen(aux); i++){
-					
-					if(aux[i] > 64 && aux[i] < 91){
-					contadorMayus+=1;
+		if (longitud > 5 && longitud < 11)
+		{
+			if (aux[0] >= 'a' && aux[0] <= 'z')
+			{
+				for (int i=0; i<longitud; i++)
+				{
+					if (aux[i] >= 'A' && aux[i] <= 'Z')
+					{
+						contadorMayus++;
 					}
-			
-					if(contadorMayus > 1){
-						for(int i=0; i<strlen(aux); i++){
-				
-			 				if(aux[i] > 47 && aux[i] < 58){
-			   					contadorNum+=1;
-							}
-						}
-						if(contadorNum < 4){
-			   			    bandera = true;
+					else
+					{
+						if (aux[i] >= '0' && aux[i] <= '9')
+						{
+							contadorNum++;
 						}
 					}
-				}	
-			}	
+				}
+				if (contadorMayus > 1 && contadorNum < 4)
+				{
+					bandera = true;
+				}
+			}
 		}
-	
 		if(bandera == false){
 			printf("\nEl nombre de usuario ingresado no cumple con alguna de las condiciones dadas.");
-			printf("\nVuelva a intentar.");
+			printf("\nVuelva a intentar.\n\n");
 		}
 	}while(bandera == false);
 }
+	
 
-void password(FILE *usuario, cadena &password){
-	 
-	int may = 0, min = 0, num = 0, otros = 0, numcons = 0, letrasCons = 1;
+
+void password(FILE *usuario, cadena &password)
+{
+	int Mayus,Minus,Num,Signos,NumConsecutivos,letrasCons;
+	bool Band = false;
 	cadena passAux;
 	
 	do{
+		Mayus = 0, Minus = 0, Num = 0, Signos = 0, NumConsecutivos = 0, letrasCons = 1;
+		
 		printf("\nIngrese su contrasenia: ");
 		gets(passAux);
 		strcpy(password, passAux);
 
-		for(int i=0; i<strlen(passAux); i++){
-			if (passAux[i] >='A' && passAux[i] <='Z'){
-			may++;
-			numcons = 0;		
+		for(int i=0; i<strlen(passAux); i++)
+		{
+			if (passAux[i] >='A' && passAux[i] <='Z')
+			{
+			Mayus++;		
 			} 
-			else if (passAux[i] >='a' && passAux[i] <='z'){
-				 min++;
-				 numcons = 0;
+			else 
+			{
+				if (passAux[i] >='a' && passAux[i] <='z')
+				{
+				 Minus++;	
+				}
+				else
+				{
+					if (passAux[i] >= '0' && passAux[i] <= '9')
+					{
+						Num++;
+						NumConsecutivos++;
+					}
+					else
+					{
+						Signos++;
+					}
+				}
 	 		}
-			else if (passAux[i] >= '0' && passAux[i] <='9'){
-			 	num++;
-				numcons++;	
-			    }
-			 	else otros++;
-			if (numcons == 4){
-				
-			}
 		}
 		strlwr(passAux);
 		
-		for(int i=0; i<strlen(passAux); i++){
-			if (passAux[i] >='a' && passAux[i] <='z'){
-			   if(i>0 && passAux[i-1]>'9' && passAux[i]==passAux[i-1]+1) letrasCons++;			
+		for(int i=0; i<strlen(passAux); i++)
+		{
+			if (passAux[i] >= 'a' && passAux[i] <= 'z')
+			{
+			   if(i>0 && passAux[i-1]>'9' && passAux[i]==passAux[i-1] + 1)
+			   {
+			   		letrasCons++;
+			   } 			
 			}
 		}	
-		
-	}while(may<1 || 
-		   min<1 || 
-		   num<1 || 
-		   otros!=0 || 
-	       strlen(passAux)<6 || 
-		   strlen(passAux)>32 || 
-		   numcons>3 || letrasCons>1);
+		if (Mayus >= 1 && Minus >= 1 && Num >= 1 && Signos == 0 && letrasCons != 2 && NumConsecutivos <= 3)
+		{
+			Band = true;
+		}	
+	}while(Band == false);
 	 
 }
 

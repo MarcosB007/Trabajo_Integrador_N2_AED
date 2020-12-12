@@ -5,6 +5,9 @@ void ListarTurno (FILE *ArchTurnos);
 
 void CargarMascotas(FILE *Mascotas){
 	
+	fclose(Mascotas);
+	Mascotas = fopen("Mascotas.dat","ab");
+	
 	Datosmascota Dm;
 	 
 	 printf("\n\t*************************************************************************");
@@ -31,12 +34,13 @@ void CargarMascotas(FILE *Mascotas){
          scanf("%d", &Dm.f_mascota.mes);
          printf("Ingrese el año:\n");
          scanf("%d", &Dm.f_mascota.anio);
-         Dm.atendido = false;
+         
          
          system("PAUSE"); 
 	fwrite (&Dm, sizeof (Datosmascota), 1, Mascotas);
 	system("cls");
 	fclose(Mascotas);
+	Mascotas = fopen("Mascotas.dat","a+b");
 		
 }
 void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario){
@@ -84,9 +88,7 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario){
 	scanf("%d", &T.f_turnos.anio);
 	printf("Ingrese el DNI del Dueño:");
 	scanf("%d", &T.DNI_dueno);
-    printf("Detalle la razon del turno:\n");
-    _flushall();
-	gets(T.detalleAtencion);
+	T.turnoAtendido = false;
 	fwrite(&T, sizeof(turnos), 1, ArchTurnos);
 
 	printf("\n*******************************************************");

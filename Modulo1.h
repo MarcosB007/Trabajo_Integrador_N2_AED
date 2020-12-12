@@ -1,8 +1,8 @@
 #include "Estructuras.h"
 
 void IndentificarVeterinario(FILE *Vet, char vet[50]);
-void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A);
-void atenderMascota(FILE *archMascotas, char nombreApellido, bool &bandera);
+void ListarTurnos(FILE *archTurnos);
+void evolucionMascota(FILE *archMascotas, FILE *archTurnos);
 
 void IndentificarVeterinario(FILE *Vet, char vet[50]){
 	
@@ -39,69 +39,93 @@ void IndentificarVeterinario(FILE *Vet, char vet[50]){
 	}while(b != true);
 }
 
-void ListarTurnos(FILE *archTurnos, FILE *archMascotas, int D, int M, int A){
-	
+void ListarTurnos(FILE *archTurnos){
+	system("cls");
+	printf("\nLISTADO DE TURNOS\n");
 	turnos lectura;
-	Datosmascota lectMasct;
 	
 	rewind(archTurnos);
 	
 	fread(&lectura, sizeof(turnos), 1, archTurnos);
 	
 	while(!feof(archTurnos)){
-		
-		if(lectura.f_turnos.anio == A && lectura.f_turnos.mes == M && lectura.f_turnos.dia == D){
 			
-			rewind(archMascotas);
-			fread(&lectMasct, sizeof(Datosmascota), 1, archMascotas);
+		if(lectura.turnoAtendido == false){
 			
-			while(!feof(archMascotas)){
-				
-				if(lectura.DNI_dueno == lectMasct.DNI_dueno){
-					if(lectMasct.atendido == false){
-						
-						printf("\nApellido y Nombre: %s", lectMasct.AyN);
-						printf("\nDomicilio: %s", lectMasct.domicilio);
-						printf("\nDNI: %d", lectMasct.DNI_dueno);
-						printf("\nLocalidad: %s", lectMasct.localidad);
-						printf("\nPeso: %.2f", lectMasct.peso);
-						printf("\nTelefono: %s\n", lectMasct.telefono);			  	
-					}
-				}
-				
-				fread(&lectMasct, sizeof(Datosmascota), 1, archMascotas);
-			}
-			
+			printf("\nMatricula del veterinario: %s", lectura.MatriculaVet);
+			printf("\nDNI mascota: %d", lectura.DNI_dueno);
+			printf("\nFecha: %d/%d/%d\n", lectura.f_turnos.dia, lectura.f_turnos.mes, lectura.f_turnos.anio);
 		}
 		
 		fread(&lectura, sizeof(turnos), 1, archTurnos);
 	}
 }
 
-void atenderMascota(FILE *archMascotas, char nombreApellido[50], bool &bandera){
+void evolucionMascota(FILE *archMascotas, FILE *archTurnos){
+	
+	fclose(archMascotas);
+	fclose(archTurnos);
+	archTurnos = fopen("Turnos.dat","r+b");
+	archMascotas = fopen("Mascotas.dat","r+b");
 	
 	rewind(archMascotas);
+	rewind(archTurnos);
 	Datosmascota mascota;
+	turnos turno;
+	char nombreMascota[50];
+	bool bandera = false;
+	
+	printf("\nIngrese el nombre de la mascota a atender: ");
+	_flushall();
+	gets(nombreMascota);
 	
 	fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
 	while(!feof(archMascotas)){
 		
-		if(strcmp(mascota.AyN, nombreApellido) == 0){
-			mascota.atendido = true;
-			bandera = true;
-			break;
+		if(strcmp(mascota.AyN, nombreMascota) == 0){
+			
+			
+			fread(&turno, sizeof(turnos), 1, archTurnos);
+			while(!feof(archTurnos)){
+				
+				if(mascota.DNI_dueno == turno.DNI_dueno && turno.turnoAtendido == false ){
+					
+					printf("\nDescriba la evolucion de la mascota");
+					printf("\n- ");
+					_flushall();
+					gets(turno.detalleAtencion);
+					bandera = true;
+					
+					turno.turnoAtendido = true;
+					
+					fseek(archTurnos, -sizeof(turnos), SEEK_CUR);
+					fwrite(&turno, sizeof(turnos), 1, archTurnos);
+					
+					break;	   
+				}
+				
+				else{
+					fread(&turno, sizeof(turnos), 1, archTurnos);
+				}
+			}
+			
 		}
-		
+		else{
+				printf("\nEl nombre ingresado no existe en los registros.");
+				break;
+			}
+			
 		fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
 	}
 	
-	if(bandera == false){
-		printf("\nEl nombre de la mascota ingresado no tiene turno para este dia.\n");
+	if(bandera == true){
+		fwrite(&turno, sizeof(turnos), 1, archTurnos);
 	}
-	
-	fwrite(&mascota, sizeof(Datosmascota), 1, archMascotas);
-	printf("Mascota atendida.");
-	
+
+	fclose(archMascotas);
+	fclose(archTurnos);
+	archTurnos = fopen("Turnos.dat","a+b");
+	archMascotas = fopen("Mascotas.dat","a+b");
 }
 
 

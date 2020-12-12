@@ -4,7 +4,7 @@
 #include "Modulo3.h"
 
 int MenuPrincipal();
-void cargarVeterinario(FILE *archVet);
+void cargarVeterinario(FILE *veterinarios);
 
 main()
 {
@@ -53,7 +53,17 @@ main()
 			break;
 			
 			case 3:	
-				 	AtencionVeterinario(turnos);
+				 	AtencionVeterinario(veterinarios); //aqui
+			break;
+			
+			case 5:
+					printf ("\nSaliendo del programa...\n\n");
+			break;
+			
+			default:
+					printf ("\nLa opcion elegida no es valida. Vuelva a intentarlo...\n\n");
+					system ("pause");
+					system ("cls");
 			break;
 		}
 		
@@ -82,7 +92,7 @@ int MenuPrincipal(){
 		return opc;
 }
 
-void cargarVeterinario(FILE *archVet)
+void cargarVeterinario(FILE *veterinarios)
 {	
 	Veterinario vet;
 	cadena userAux, passAux;
@@ -108,13 +118,13 @@ void cargarVeterinario(FILE *archVet)
 	printf ("Anio: ");
 	scanf ("%d",&vet.fech.anio);
 	vet.edad = 2020 - vet.fech.anio; 
-	
-	user(archVet, userAux);
+	_flushall();
+	user(veterinarios, userAux);
 	strcpy(vet.Usuario,userAux);
 	
-	password(archVet, passAux);
+	password(veterinarios, passAux);
 	strcpy(vet.Contrasena, passAux);
 	
-	fwrite(&vet, sizeof(Veterinario), 1, archVet);
+	fwrite(&vet, sizeof(Veterinario), 1, veterinarios);
 	
 }
