@@ -107,7 +107,7 @@ void ListarTurno (FILE *ArchTurnos){
 	printf("\n*******************************************************");
 	turnos T;
 	
-	rewind(ArchTurnos);
+	
 	
 	fread(&T, sizeof(turnos), 1, ArchTurnos);
 	
@@ -116,10 +116,11 @@ void ListarTurno (FILE *ArchTurnos){
 		if(T.turnoAtendido == false){
 			
 			printf("\nMatricula del veterinario: %s", T.MatriculaVet);
-			printf("\nFecha:\n");
-			printf("Dia:%d", T.f_turnos.dia);
-			printf("Mes:%d", T.f_turnos.mes);
-			printf("Anio:%d", T.f_turnos.anio);
+			printf("\nFecha:");
+			printf("\nDia:%d", T.f_turnos.dia);
+			printf("\nMes:%d", T.f_turnos.mes);
+			printf("\nAnio:%d", T.f_turnos.anio);
+			printf("\n*******************************************************");
 		}
 		
 		fread(&T, sizeof(turnos), 1, ArchTurnos);
