@@ -30,6 +30,7 @@ main()
 			break;
 			
 			case 2:
+				   fclose(turno);
 				   if(verificar == true){
 				   		
 				   		ListarTurnos(turno);
@@ -38,35 +39,26 @@ main()
 				   else{
 				   	printf("Debe iniciar sesion.");
 				   }
+				   turno = fopen("Turnos.dat","a+b");
 			break;
 			
 			case 3:	
+				 	fclose(turno);
 				 	if(verificar == true){
 				   		
-				   		evolucionMascota(mascotas, turno);
-			   			
-						/*rewind(turno);
-				   		fread(&t, sizeof(turnos), 1, turno);
-						while(!feof(turno)){
-						if(t.turnoAtendido == true){
-							printf("\nmuestra: %s", t.detalleAtencion);
-						}
+				   		evolucionMascota(turno);
 						
-						fread(&t, sizeof(turnos), 1, turno);
-						system("pause");
-						}*/
 				   }
 				   else{
 				   	printf("Debe iniciar sesion.");
 				   }
+				   turno = fopen("Turnos.dat","a+b");
 			break;
 		}
 		printf("\n");
 		system("pause");
 		
 	}while(opcion !=4);
-	
-
 	
 	fclose(veterinarios);
 	fclose(turno);
