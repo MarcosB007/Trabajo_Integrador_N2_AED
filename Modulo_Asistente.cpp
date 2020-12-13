@@ -38,7 +38,7 @@ main()
 			
 			case 3:	
 				 	if(verificar == true){
-				  		cargaTurnos(turnos, veterinarios);
+				  		cargaTurnos(turnos, veterinarios, mascotas);
 				  	}
 				  	else{
 				  		printf("Debe iniciar sesion.");

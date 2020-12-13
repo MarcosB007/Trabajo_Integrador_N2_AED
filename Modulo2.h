@@ -120,20 +120,20 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 	
 }
 	
-void ListarTurno (FILE *ArchTurnos){
+void ListarTurno (FILE *ArchTurnos, int dia){
 	system("cls");
 	printf("\n*******************************************************");
 	printf("\n\t\t\tLISTADO DE TURNOS\n");
 	printf("\n*******************************************************");
 	turnos T;
-	
+	rewind(ArchTurnos);
 	
 	
 	fread(&T, sizeof(turnos), 1, ArchTurnos);
 	
 	while(!feof(ArchTurnos)){
 			
-		if(T.turnoAtendido == false){
+		if(T.f_turnos.dia == dia){
 			
 			printf("\nMatricula del veterinario: %s", T.MatriculaVet);
 			printf("\nFecha:");
