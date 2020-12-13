@@ -120,7 +120,7 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 	
 }
 	
-void ListarTurno (FILE *ArchTurnos, int dia){
+void ListarTurno (FILE *ArchTurnos){
 	system("cls");
 	printf("\n*******************************************************");
 	printf("\n\t\t\tLISTADO DE TURNOS\n");
