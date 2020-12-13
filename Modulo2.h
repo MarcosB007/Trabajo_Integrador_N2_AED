@@ -133,7 +133,7 @@ void ListarTurno (FILE *ArchTurnos, int dia){
 	
 	while(!feof(ArchTurnos)){
 			
-		if(T.f_turnos.dia == dia){
+		if(T.turnoAtendido == false){
 			
 			printf("\nMatricula del veterinario: %s", T.MatriculaVet);
 			printf("\nFecha:");
