@@ -125,7 +125,8 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 	turnos T;
 	char matriculAux[50];
-	char fechaDia[50];
+	int dia, mes, anio;
+	int num;
     bool bandera = false, b = false;
     
     system("cls");
@@ -137,34 +138,52 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 		printf("\nIngrese la matricula del veterinario:");
 		_flushall();
 		gets(matriculAux);
+		
 		printf("\nIngrese una fecha:");
 		printf("\nDia:");
+		scanf("%d", &dia);
 		printf("\nMes:");
+		scanf("%d", &mes);
 		printf("\nAnio:");
-		scanf(fechaDia);
-		rewind(ArchVeterinario);
+		scanf("%d", &anio);
+		
+		rewind(ArchTurnos);
 		fread (&T,sizeof(turnos), 1, ArchTurnos);
-		while(!feof(ArchVeterinario)){
-			if(strcmp(T.MatriculaVet, matriculAux)==0 && (T.f_turnos,fechaDia) == 0){
-				bandera = true;
-				break;
+		while(!feof(ArchTurnos)){
+			
+			if(strcmp(T.MatriculaVet, matriculAux)==0 && T.turnoAtendido == true){
+				
+				if(T.f_turnos.dia == dia && T.f_turnos.mes == mes && T.f_turnos.anio == anio){
+					
+					printf("\n*******************************************************");
+					printf("\nMatricula del veterinario: %s",T.MatriculaVet);
+					printf("\nFecha de atencion: %d/%d/%d", T.f_turnos.dia, T.f_turnos.mes, T.f_turnos.anio);
+					printf("\nDNI de la mascota atendida: %d", T.DNI_dueno);
+					printf("\nHistoria clinica: %s", T.detalleAtencion);
+					printf("\n*******************************************************");
+					
+					bandera = true;
+				}
 			}
+			
 			fread (&T,sizeof(turnos), 1, ArchTurnos);
 		}
-		if (bandera = false){
-			printf("\Esta matricula o fecha no estan registradas. Intente nuevamente...");
+		if (bandera == false){
+			printf("\Esta matricula o fecha no estan registradas.");
+			do{
+				printf("\nIngrese 1 para intentar nuevamente");
+				printf("\nIngrese 0 para salir");
+				scanf("%d", &num);
+				system("cls");
+			}while(num != 0 && num != 1);	
 		}
+		
+		printf("\n");
 		system("pause");
 		system("cls");
 		
-	}while(bandera != true);
-	printf("\n*******************************************************");
-	printf("\nMatricula del veterinario: %d",T.MatriculaVet);
-	printf("\nFecha:");
-	printf("\nDia:", T.f_turnos.dia);
-	printf("\nMes:", T.f_turnos.mes);
-	printf("\nAnio:", T.f_turnos.anio);
-	printf("\n*******************************************************");
+	}while(num != 0 && bandera != true);
+	
 }
 	
 		
