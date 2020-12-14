@@ -53,7 +53,7 @@ main()
 			break;
 			
 			case 3:	
-				 	AtencionVeterinario(veterinarios); //aqui
+				 	AtencionVeterinario(turnos); //aqui
 			break;
 			
 			case 5:
