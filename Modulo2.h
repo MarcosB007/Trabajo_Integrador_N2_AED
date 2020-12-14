@@ -173,10 +173,11 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 			fread (&T,sizeof(turnos), 1, ArchTurnos);
 		}
 		if (bandera == false){
-			printf("\Esta matricula o fecha no estan registradas.");
+			printf("\nEsta matricula o fecha no estan registradas.");
 			do{
 				printf("\nIngrese 1 para intentar nuevamente");
 				printf("\nIngrese 0 para salir");
+				printf("\nIngrese la opcion deseada:");
 				scanf("%d", &num);
 				system("cls");
 			}while(num != 0 && num != 1);	
