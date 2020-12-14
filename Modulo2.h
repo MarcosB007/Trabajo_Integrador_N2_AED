@@ -1,8 +1,7 @@
 
 void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *arcMascotas);
 void CargarMascotas(FILE *Mascotas);
-void ListarTurno (FILE *ArchTurnos);
-
+void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario);
 void CargarMascotas(FILE *Mascotas){
 	
 	fclose(Mascotas);
@@ -43,6 +42,8 @@ void CargarMascotas(FILE *Mascotas){
 	Mascotas = fopen("Mascotas.dat","a+b");
 		
 }
+
+
 void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 	turnos T;
 	Veterinario vet;
@@ -120,30 +121,53 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 	
 }
 	
-void ListarTurno (FILE *ArchTurnos){
-	system("cls");
+void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
+	turnos T;
+	char matriculAux[50];
+	char fechaDia[50];
+    bool bandera = false, b = false;
+    
+    system("cls");
 	printf("\n*******************************************************");
 	printf("\n\t\t\tLISTADO DE TURNOS\n");
 	printf("\n*******************************************************");
-	turnos T;
-	rewind(ArchTurnos);
 	
-	
-	fread(&T, sizeof(turnos), 1, ArchTurnos);
-	
-	while(!feof(ArchTurnos)){
-			
-		if(T.turnoAtendido == false){
-			
-			printf("\nMatricula del veterinario: %s", T.MatriculaVet);
-			printf("\nFecha:");
-			printf("\nDia:%d", T.f_turnos.dia);
-			printf("\nMes:%d", T.f_turnos.mes);
-			printf("\nAnio:%d", T.f_turnos.anio);
-			printf("\n*******************************************************");
+	do{
+		printf("\nIngrese la matricula del veterinario:");
+		_flushall();
+		gets(matriculAux);
+		printf("\nIngrese una fecha:");
+		printf("\nDia:");
+		printf("\nMes:");
+		printf("\nAnio:");
+		_flushall();
+		gets(fechaDia);
+		rewind(ArchVeterinario);
+		fread (&T,sizeof(turnos), 1, ArchTurnos);
+		while(!feof(ArchVeterinario)){
+			if(strcmp(T.MatriculaVet, matriculAux)==0 && (T.f_turnos,fechaDia) == 0){
+				bandera = true;
+				break;
+			}
+			fread (&T,sizeof(turnos), 1, ArchTurnos);
 		}
+		if (bandera = false){
+			printf("\Esta matricula o fecha no estan registradas. Intente nuevamente...");
+		}
+		system("pause");
+		system("cls");
 		
-		fread(&T, sizeof(turnos), 1, ArchTurnos);
-	}
+	}while(bandera != true);
+	printf("\n*******************************************************");
+	printf("\nMatricula del veterinario: %d",T.MatriculaVet);
+	printf("\nFecha:");
+	printf("\nDia:", T.f_turnos.dia);
+	printf("\nMes:", T.f_turnos.mes);
+	printf("\nAnio:", T.f_turnos.anio);
+	printf("\n*******************************************************");
 }
+	
+		
+	
+
 	

@@ -46,7 +46,7 @@ main()
 			break;
 			case 4:
 			if(verificar == true){
-				ListarTurno(turnos);
+				ListarTurno(turnos, veterinarios);
 			}
 			else{
 				printf("Debe iniciar sesion.");
