@@ -120,6 +120,7 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 	printf("\n*******************************************************");
 	
 }
+
 	
 void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 	turnos T;
@@ -140,8 +141,7 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 		printf("\nDia:");
 		printf("\nMes:");
 		printf("\nAnio:");
-		_flushall();
-		gets(fechaDia);
+		scanf(fechaDia);
 		rewind(ArchVeterinario);
 		fread (&T,sizeof(turnos), 1, ArchTurnos);
 		while(!feof(ArchVeterinario)){

@@ -64,7 +64,7 @@ main()
 	
 	
 	fclose(usuarios);
-	system("\n\npause");
+	
 }
 
 int MenuPrincipal(){
