@@ -129,7 +129,10 @@ void InicioSesion(FILE *usuario, int num){
 	Usuarios lect;
 	
 	bool b = false;
+	int n=0;
+	
 	do{
+		system("cls");
 		printf("\t\t\t\t\t============================\n");
 		printf("\t\t\t\t\t===   INICIO DE SESION   ===\n");
 		printf("\t\t\t\t\t============================\n");
@@ -166,9 +169,18 @@ void InicioSesion(FILE *usuario, int num){
 			fread(&lect, sizeof(Usuarios), 1, usuario);
 		}
 		if(b == false){
-			printf("\nNombre de usuario o contrasenia incorrecto.Vuelva a intentarlo...\n\n");
+			printf("\nNombre de usuario o contrasenia incorrecto.\n");
 			system ("pause");
-			system ("cls");
+			do{
+				system ("cls");
+				printf("\nIngrese 1 para volver a intentar.");
+				printf("\nIngrese 0 para salir.");
+				scanf("%d", &n);
+				
+				if(num == 1)b = false;
+				else b = true;
+				
+			}while(n != 1 && n != 0);
 		}
 	}while(b != true);
 	
