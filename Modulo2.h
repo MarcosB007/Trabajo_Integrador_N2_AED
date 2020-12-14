@@ -2,6 +2,7 @@
 void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *arcMascotas);
 void CargarMascotas(FILE *Mascotas);
 void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario);
+
 void CargarMascotas(FILE *Mascotas){
 	
 	fclose(Mascotas);
@@ -33,6 +34,7 @@ void CargarMascotas(FILE *Mascotas){
          scanf("%d", &Dm.f_mascota.mes);
          printf("\nIngrese el anio:");
          scanf("%d", &Dm.f_mascota.anio);
+         Dm.edad = 2020 - Dm.f_mascota.anio;
          
          
          system("PAUSE"); 
@@ -45,6 +47,7 @@ void CargarMascotas(FILE *Mascotas){
 
 
 void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
+	
 	turnos T;
 	Veterinario vet;
 	Datosmascota mascota;
@@ -102,6 +105,7 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 				printf("\nIngrese el año:");
 				scanf("%d", &T.f_turnos.anio);
 				T.turnoAtendido = false;
+				strcpy(T.detalleAtencion,"\0");
 				fwrite(&T, sizeof(turnos), 1, ArchTurnos);
 				b = true;
 			}
