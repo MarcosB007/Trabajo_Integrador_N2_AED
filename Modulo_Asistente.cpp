@@ -71,16 +71,17 @@ int MenuPrincipal(){
 		
 		int opc;
 		system ("cls");
-		printf("\n\t*******************************************************************");
-		printf("\n\t\t\t\tModulo del asistente");
-		printf("\n\t*******************************************************************");
-		printf("\n 1 --> Iniciar Sesion");
-		printf("\n 2 --> Registrar Mascotas");
-		printf("\n 3 --> Registrar Turno");
-		printf("\n 4 --> Listado de atencion por veterinario y fecha");
-		printf("\n 5 --> Cerrar modulo");
-		printf("\n*******************************************************************");
-		printf("\nIngrese la opcion deseada:");
+		printf("\t\t\t\t\t================================\n");
+		printf("\t\t\t\t\t===   Modulo del asistente   ===\n");
+		printf("\t\t\t\t\t================================\n");
+		printf ("_________________________________________________________\n");
+		printf("| 1) --> Iniciar Sesion                                   |\n");
+		printf("| 2) --> Registrar Mascotas                               |\n");
+		printf("| 3) --> Registrar Turno                                  |\n");
+		printf("| 4) --> Listado de atencion por veterinario y fecha      |\n");
+		printf("| 5) --> Cerrar modulo                                    |\n");
+		printf("|_________________________________________________________|\n");
+		printf("\nIngrese la opcion deseada: ");
 		scanf ("%d",&opc);
 		return opc;
 }

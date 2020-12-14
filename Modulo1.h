@@ -12,7 +12,9 @@ void IndentificarVeterinario(FILE *Vet, char vet[50]){
 	bool b = false;
 	do{
 		system("cls");
-		printf("\nINICIO DE SESION\n");
+		printf("\t\t\t\t======================\n");
+		printf("\t\t\t\t== INICIO DE SESION ==\n");
+		printf("\t\t\t\t======================\n");
 		printf("\nMatricula: ");
 		_flushall();
 		gets(matricula);
@@ -44,7 +46,9 @@ void ListarTurnos(FILE *archTurnos){
 	archTurnos = fopen("Turnos.dat","r+b");
 	
 	system("cls");
-	printf("\nLISTADO DE TURNOS\n");
+	printf("\t\t\t\t========================\n");
+	printf("\t\t\t\t== ILISTADO DE TURNOS ==\n");
+	printf("\t\t\t\t========================\n");
 	turnos lectura;
 	
 	rewind(archTurnos);
@@ -68,6 +72,7 @@ void ListarTurnos(FILE *archTurnos){
 
 void evolucionMascota(FILE *archTurnos){
 	
+	system("cls");
 	archTurnos = fopen("Turnos.dat","r+b");
 	
 	char variable[380];

@@ -6,7 +6,8 @@
 int MenuPrincipal();
 
 main()
-{
+{	
+
 	FILE *veterinarios = fopen("Veterinarios.dat","a+b");
 	FILE *turno = fopen("Turnos.dat","a+b");
 	FILE *mascotas = fopen("Mascotas.dat","a+b");
@@ -66,14 +67,16 @@ main()
 int MenuPrincipal(){
 		
 		int opc;
-		system ("cls");
-		printf ("\t*************************************");
-		printf ("\n\t* MENU DE OPCIONES DEL CONSULTORIO *");
-		printf ("\n\t*************************************\n");
-		printf("1.- Iniciar sesion\n");
-		printf("2.- Visualizar Lista de Espera de Turnos\n");
-		printf("3.- Registrar Evolución de la Mascota\n\n");
-		printf("4.- Cerrar la aplicacion\n");
+		system("cls");
+		printf("\t\t\t\t=======================================\n");
+		printf("\t\t\t\t== MENU DE OPCIONES DEL CONSULTORIO  ==\n");
+		printf("\t\t\t\t=======================================\n");
+		printf("______________________________________________________\n");
+		printf("| 1).- Iniciar sesion                                 |\n");
+		printf("| 2).- Visualizar Lista de Espera de Turnos           |\n");
+		printf("| 3).- Registrar Evolución de la Mascota              |\n");
+		printf("| 4).- Cerrar la aplicacion                           |\n");
+		printf("|_____________________________________________________|\n");
 		printf("\nIngrese una opcion: ");
 		scanf ("%d",&opc);
 		return opc;

@@ -10,29 +10,29 @@ void CargarMascotas(FILE *Mascotas){
 	
 	Datosmascota Dm;
 	 system("cls");
-	 printf("\n\t*************************************************************************");
-	 printf("\n\t\tIncio del registro de la mascota:");
-	 printf("\n\t*************************************************************************");
-     printf( "\nIngrese el  nombre de la mascota:");
+	 printf("\t\t\t\t=========================\n");
+	 printf("\t\t\t\t==  CARGA DE MASCOTAS  ==\n");
+	 printf("\t\t\t\t=========================\n");
+     printf("\nIngrese el nombre de la mascota:");
      _flushall();
      gets(Dm.AyN);
-     printf("\nIngrese domicilio:");
+     printf("\nDomicilio: ");
      gets(Dm.domicilio);
-     printf("\nIngrese la localidad:");
+     printf("\nLocalidad: ");
      gets(Dm.localidad);
-     printf( "\nIngrese el DNI del dueno: " );
+     printf( "\nDNI del dueno de la mascota: ");
        scanf( "%d", &Dm.DNI_dueno );
-        printf( "\nEl numero celular es:" );
+        printf( "\nNumero celular: ");
          _flushall();
          gets(Dm.telefono);
-         printf("\nIngrese el peso del animal:");
+         printf("\nPeso de la mascota: ");
          scanf("%d", &Dm.peso);
-         printf("\nIngrese la Fecha de nacimiento de la mascota:");
-         printf("\nIngrese el dia:");
+         printf("\nFecha de nacimiento de la mascota:");
+         printf("\nDia:");
          scanf("%d", &Dm.f_mascota.dia);
-         printf("\nIngrese el mes:");
+         printf("\nMes:");
          scanf("%d", &Dm.f_mascota.mes);
-         printf("\nIngrese el anio:");
+         printf("\nAnio:");
          scanf("%d", &Dm.f_mascota.anio);
          Dm.edad = 2020 - Dm.f_mascota.anio;
          
@@ -54,13 +54,13 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
     char matriculAux[50];
     bool bandera = false, b = false;
 	system("cls");
-	printf("\n\t**************************************************************");
-	printf("\n\t\t\t\t\tRegistro de Turnos");
-	printf("\n\t**************************************************************");
+	printf("\t\t\t\t\t==========================\n");
+	printf("\t\t\t\t\t==  Registro de Turnos  ==\n");
+	printf("\t\t\t\t\t==========================\n");
 	
 	do{
 		
-		printf("\nIngrese la matricula del veterinario:");
+		printf("\nIngrese la matricula del veterinario: ");
 		_flushall();
 		gets(matriculAux);
 		
@@ -98,15 +98,19 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 			if(T.DNI_dueno == mascota.DNI_dueno){
 				
 				printf("\nIngrese la fecha del turno");
-				printf("\nIngrese el dia:");
+				printf("\nDia:");
 				scanf("%d", &T.f_turnos.dia);
-				printf("\nIngrese el mes:");
+				printf("\nMes:");
 				scanf("%d", &T.f_turnos.mes);
-				printf("\nIngrese el año:");
+				printf("\nAnio:");
 				scanf("%d", &T.f_turnos.anio);
 				T.turnoAtendido = false;
 				strcpy(T.detalleAtencion,"\0");
 				fwrite(&T, sizeof(turnos), 1, ArchTurnos);
+				
+				printf("\nEl turno ha sido rservado con exito!");
+				printf("\n====================================");
+				
 				b = true;
 			}
 			fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
@@ -118,10 +122,6 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 		
 	}while(bandera != true);
 	fread(&mascota, sizeof(Datosmascota), 1, archMascotas);
-
-	printf("\n*******************************************************");
-	printf("\n\t\t El turno ha sido rservado con exito!");
-	printf("\n*******************************************************");
 	
 }
 
@@ -134,9 +134,9 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
     bool bandera = false, b = false;
     
     system("cls");
-	printf("\n*******************************************************");
-	printf("\n\t\t\tLISTADO DE TURNOS\n");
-	printf("\n*******************************************************");
+	printf("\t\t\t\t\t=========================\n");
+	printf("\t\t\t\t\t==  LISTADO DE TURNOS  ==\n");
+	printf("\t\t\t\t\t=========================\n");
 	
 	do{
 		printf("\nIngrese la matricula del veterinario:");
@@ -159,12 +159,12 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 				
 				if(T.f_turnos.dia == dia && T.f_turnos.mes == mes && T.f_turnos.anio == anio){
 					
-					printf("\n*******************************************************");
+					printf("\n__________________________________________________");
 					printf("\nMatricula del veterinario: %s",T.MatriculaVet);
 					printf("\nFecha de atencion: %d/%d/%d", T.f_turnos.dia, T.f_turnos.mes, T.f_turnos.anio);
 					printf("\nDNI de la mascota atendida: %d", T.DNI_dueno);
 					printf("\nHistoria clinica: %s", T.detalleAtencion);
-					printf("\n*******************************************************");
+					printf("\n___________________________________________________");
 					
 					bandera = true;
 				}
@@ -177,7 +177,7 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 			do{
 				printf("\nIngrese 1 para intentar nuevamente");
 				printf("\nIngrese 0 para salir");
-				printf("\nIngrese la opcion deseada:");
+				printf("\n- ");
 				scanf("%d", &num);
 				system("cls");
 			}while(num != 0 && num != 1);	

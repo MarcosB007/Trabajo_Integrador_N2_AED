@@ -83,15 +83,17 @@ int MenuPrincipal(){
 		
 		int opc;
 		system ("cls");
-		printf ("\t*************************************");
-		printf ("\n\t* MENU DE OPCIONES DE ADMINISTRADOR *");
-		printf ("\n\t*************************************\n");
-		printf ("\n1) Registrar un Nuevo Veterinario");
-		printf ("\n2) Registrar un Nuevo Usuario Asistente");
-		printf ("\n3) Atenciones por Veterinario");
-		printf ("\n4) Ranking de Veterinarios por Atencion");
-		printf ("\n5) Cerrar Aplicacion");
-		printf ("\n\nOpcion: ");
+		printf ("\t\t\t\t==========================================\n");
+		printf ("\t\t\t\t==   MENU DE OPCIONES DE ADMINISTRADOR  ==\n");
+		printf ("\t\t\t\t==========================================\n");
+		printf ("________________________________________________\n");
+		printf ("| 1) Registrar un Nuevo Veterinario             |\n");
+		printf ("| 2) Registrar un Nuevo Usuario Asistente       |\n");
+		printf ("| 3) Atenciones por Veterinario                 |\n");
+		printf ("| 4) Ranking de Veterinarios por Atencion       |\n");
+		printf ("| 5) Cerrar Aplicacion                          |\n");
+		printf ("|_______________________________________________|\n");
+		printf ("\nOpcion: ");
 		scanf ("%d",&opc);
 		return opc;
 }
@@ -105,7 +107,9 @@ void cargarVeterinario(FILE *veterinarios)
 	int Band = 0;
 	
 	system ("cls");
-	printf ("\tREGISTRAR VETERINARIO\n\n");
+	printf ("\t\t\t\t\t================================\n");
+	printf ("\t\t\t\t\t==   REGISTRAR VETERINARIO   ===\n");
+	printf ("\t\t\t\t\t================================\n");
 	printf ("Apellido y Nombre: ");
 	_flushall();
 	gets (vet.ApeyNom);
@@ -114,7 +118,7 @@ void cargarVeterinario(FILE *veterinarios)
 	printf("Matricula: ");
 	_flushall();
 	gets (vet.matricula);
-	printf ("\nIngrese la fecha de Nacimiento\n\n");
+	printf ("\nIngrese la fecha de Nacimiento\n");
 	printf ("Dia: ");
 	scanf ("%d",&vet.fech.dia);
 	printf ("Mes: ");

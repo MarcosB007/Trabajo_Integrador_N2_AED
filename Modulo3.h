@@ -49,10 +49,13 @@ void RankingAtenciones(FILE *archTurnos, FILE *archVeterinarios){
 		
 	}while(b == 1);
 	
-	printf("\nRANKING DE ATENCIONES");
+	printf("\t\t\t\t\t=================================\n");
+	printf("\t\t\t\t\t===   RANKING DE ATENCIONES   ===\n");
+	printf("\t\t\t\t\t=================================\n");
 	
 	for(i=0; i<n; i++){
-		printf("\n\nVeterinario con matricula %s tiene %d atenciones\n", matriculas[i], cantidades[i]);
+		printf("\n\nVeterinario matricula %s, tiene %d atenciones\n", matriculas[i], cantidades[i]);
+		printf("____________________________________________________");
 	}
 	system("pause");
 	fclose(archTurnos);
@@ -85,9 +88,9 @@ void AtencionVeterinario(FILE *archTurnos) //aqui
 	char matriculAux[50];
 	
 	system ("cls");
-	printf ("\t****************************************************\n");
-	printf ("\t* ATENCIONES QUE ESTAN REALIZANDO LOS VETERINARIOS *\n");
-	printf ("\t****************************************************\n\n");
+	printf("\t\t\t============================================================\n");
+	printf("\t\t\t===   ATENCIONES QUE ESTAN REALIZANDO LOS VETERINARIOS   ===\n");
+	printf("\t\t\t============================================================\n");
 	
 	do
 	{
@@ -99,22 +102,24 @@ void AtencionVeterinario(FILE *archTurnos) //aqui
 		fread (&T,sizeof(turnos),1,archTurnos);
 		while (!feof(archTurnos))
 		{
-			if (strcmp(T.MatriculaVet, matriculAux) == 0 && T.turnoAtendido == true)
-			{
-				//system ("cls");
-				//printf ("\tEl Veterinario fue Encontrado\n");
+			if (strcmp(T.MatriculaVet, matriculAux) == 0 && T.turnoAtendido == true){
+				
 				printf ("\nMatricula del Veterinario: %s",T.MatriculaVet);
 				printf ("\nDNI del dueño: %d",T.DNI_dueno);
 				printf ("\nDetalles de la Atencion: %s\n\n",T.detalleAtencion);
-				Band = 1;
-				//break;
+				Band = 0;
 			}
 			fread (&T,sizeof(turnos),1,archTurnos); 
 		}
 		if(Band == 0){
-			printf("\nNo se encontraron resultados para la matricula ingresada: ");
+			printf("\nNo se encontraron resultados para la matricula ingresada.\n");
+			system("pause");
+			system("cls");
+			printf("\ningrese 1 para intentar nuevamente");
+			printf("\nIngrese 0 para salir");
+			scanf("%d", &Band);
 		}
-	}while (Band == 0);
+	}while (Band == 1);
 	system ("pause");
 }
 
@@ -125,7 +130,10 @@ void InicioSesion(FILE *usuario, int num){
 	
 	bool b = false;
 	do{
-		printf("\nINICIO DE SESION\n");
+		printf("\t\t\t\t\t============================\n");
+		printf("\t\t\t\t\t===   INICIO DE SESION   ===\n");
+		printf("\t\t\t\t\t============================\n");
+		
 		printf("\nNombre de usuario: ");
 		_flushall();
 		gets(nombreUsuario);
@@ -174,7 +182,9 @@ void IndentificarVeterinario(FILE *veterinarios, bool &salida){
 	bool b = false;
 	do{
 		system("cls");
-		printf("\nINICIO DE SESION\n");
+		printf("\t\t\t\t\t============================\n");
+		printf("\t\t\t\t\t===   INICIO DE SESION   ===\n");
+		printf("\t\t\t\t\t============================\n");
 		printf("\nMatricula: ");
 		_flushall();
 		gets(matricula);
@@ -208,30 +218,40 @@ void registrar(FILE *usuario, int num){
 	cadena nombre, contr;
 	Usuarios lectura;
 	system ("cls");
-	printf("\nREGISTRARSE\n");
+	
+	printf("\t\t\t\t\t=======================\n");
+	printf("\t\t\t\t\t===   REGISTRARSE   ===\n");
+	printf("\t\t\t\t\t=======================\n");
+	
 	printf("\nNombre y Apellido: ");
 	_flushall();
 	gets(lectura.Apellido_Y_Nombre);
 	
-	system ("cls");
-	printf ("\tNOMBRE DE USUARIO:\n");
-	printf("\n\tAVISOS IMPORTANTES!\n\n");
-	printf("\na) El nombre de usuario debe tener entre 6 y 10 caracteres");
-	printf("\nb) Debe comenzar con una letra minuscula");
-	printf("\nc) Tener al menos 2 letras mayusculas");
-	printf("\nd) Tener como maximo 3 digitos\n");
+	system("cls");
+	printf("____________________________________________________________________\n");
+	printf("| NOMBRE DE USUARIO:                                                |\n");
+	printf("| AVISOS IMPORTANTES!                                               |\n");
+	printf("| a) El nombre de usuario debe tener entre 6 y 10 caracteres        |\n");
+	printf("| b) Debe comenzar con una letra minuscula                          |\n");
+	printf("| c) Tener al menos 2 letras mayusculas                             |\n");
+	printf("| d) Tener como maximo 3 digitos                                    |\n");
+	printf("|___________________________________________________________________|\n");
+	
 	user(usuario, nombre);
 	strcpy(lectura.nomUsuario, nombre);
 	printf ("\nUsuario Creado...\n\n");
 	system ("pause");
 	system ("cls");
- 	printf("\tCREAR CONTRASEÑA:\n");
-	printf("\n\tAVISOS IMPORTANTES!\n\n");
-	printf("\na)Debera contener al menos una letra mayuscula, una letra minuscula y un numero. ");
-	printf("\nb)No podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos. ");
-	printf("\nc)Debera tener entre 6 y 32 caracteres");
-	printf("\nd)No debe tener mas de 3 caracteres numericos consecutivos. ");
-	printf("\ne)No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas\n");
+	printf("__________________________________________________________________________________________________________________\n");
+ 	printf("| CONTRASEÑA                                                                                                      |\n");
+	printf("| AVISOS IMPORTANTES!                                                                                             |\n");
+	printf("| a)Debera contener al menos una letra mayuscula, una letra minuscula y un numero.                                |\n");
+	printf("| b)No podra contener ningun caracter de puntuacion, ni acentos, ni espacios. Solo caracteres alfanumericos.      |\n");
+	printf("| c)Debera tener entre 6 y 32 caracteres                                                                          |\n");
+	printf("| d)No debe tener mas de 3 caracteres numericos consecutivos.                                                     |\n");
+	printf("| e)No debe tener 2 caracteres consecutivos que refieran a letras alfabeticamente consecutivas                    |\n");
+	printf("|_________________________________________________________________________________________________________________|\n");
+	
 	password(usuario, contr);
 	strcpy(lectura.contrasenia,contr);
 	if(num == 1){
