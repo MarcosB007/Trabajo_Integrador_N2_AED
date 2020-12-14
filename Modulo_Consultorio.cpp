@@ -12,10 +12,7 @@ main()
 	FILE *mascotas = fopen("Mascotas.dat","a+b");
 	
 	int opcion;
-	int opc, D, M, A;
 	bool verificar = false;
-	bool bandera = false;
-	char ApeNomMascota[50];
 	char veterinarioAtendiendo[50];
 	turnos t;
 	
