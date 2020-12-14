@@ -4,9 +4,9 @@ void user(FILE *usuario, cadena &aux);
 void password(FILE *usuario, cadena &password);
 
 
-void AtencionVeterinario(FILE *veterinarios) //aqui
+void AtencionVeterinario(FILE *archTurnos) //aqui
 {
-	char Lectura;
+	//char Lectura;
 	int Band = 0;
 	turnos T;
 	char matriculAux[50];
@@ -15,29 +15,34 @@ void AtencionVeterinario(FILE *veterinarios) //aqui
 	printf ("\t****************************************************\n");
 	printf ("\t* ATENCIONES QUE ESTAN REALIZANDO LOS VETERINARIOS *\n");
 	printf ("\t****************************************************\n\n");
-	rewind (veterinarios);
+	
 	do
 	{
 		printf ("Ingrese la matricula del Veterinario: ");
 		_flushall();
-		gets (matriculAux);
-		fread (&Lectura,sizeof(turnos),1,veterinarios);
-		while (!feof(veterinarios))
+		gets(matriculAux);
+		
+		rewind (archTurnos);
+		fread (&T,sizeof(turnos),1,archTurnos);
+		while (!feof(archTurnos))
 		{
-			if (strcmp(matriculAux,T.MatriculaVet) == 0)
+			if (strcmp(T.MatriculaVet, matriculAux) == 0 && T.turnoAtendido == true)
 			{
-				system ("cls");
-				printf ("\tEl Veterinario fue Encontrado\n");
-				printf ("\nMatricula del Veterinario: %d",T.MatriculaVet);
+				//system ("cls");
+				//printf ("\tEl Veterinario fue Encontrado\n");
+				printf ("\nMatricula del Veterinario: %s",T.MatriculaVet);
 				printf ("\nDNI del dueño: %d",T.DNI_dueno);
 				printf ("\nDetalles de la Atencion: %s\n\n",T.detalleAtencion);
 				Band = 1;
-				system ("pause");
-				break;
+				//break;
 			}
-			fread (&Lectura,sizeof(turnos),1,veterinarios); 
+			fread (&T,sizeof(turnos),1,archTurnos); 
+		}
+		if(Band == 0){
+			printf("\nNo se encontraron resultados para la matricula ingresada: ");
 		}
 	}while (Band == 0);
+	system ("pause");
 }
 
 void InicioSesion(FILE *usuario, int num){
