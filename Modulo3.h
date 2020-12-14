@@ -2,6 +2,79 @@
 
 void user(FILE *usuario, cadena &aux);
 void password(FILE *usuario, cadena &password);
+void RankingAtenciones(FILE *archTurnos, FILE *archVeterinarios);
+int cantidadTurnos(FILE *archTurnos, char matricula[50]);
+
+void RankingAtenciones(FILE *archTurnos, FILE *archVeterinarios){
+	
+	archVeterinarios = fopen("Veterinarios.dat","a+b");
+	archTurnos = fopen("Turnos.dat","a+b");
+	
+	rewind(archTurnos);
+	rewind(archVeterinarios);
+	int i=0, b=0;
+	cadena matriculas[50];
+	int cantidades[50];
+	turnos turno;
+	Veterinario vet;
+	
+	fread(&vet, sizeof(Veterinario), 1, archVeterinarios);
+	while(!feof(archVeterinarios)){
+		
+		strcpy(matriculas[i], vet.matricula);
+		cantidades[i] = cantidadTurnos(archTurnos, vet.matricula);
+		
+		i++;
+		fread(&vet, sizeof(Veterinario), 1, archVeterinarios);
+	}
+	
+	int n=i, auxC=0;
+	char auxM[50];
+	
+	do{
+		b=0;
+		for(i=0; i<n-1;i++){
+		
+			if(cantidades[i] < cantidades[i+1]){
+				auxC=cantidades[i];
+				cantidades[i] = cantidades[i+1];
+				cantidades[i+1] = auxC;
+			
+				strcpy(auxM, matriculas[i]);
+				strcpy(matriculas[i], matriculas[i+1]);
+				strcpy(matriculas[i+1], auxM);
+				b=1;
+			}		
+		}
+		
+	}while(b == 1);
+	
+	printf("\nRANKING DE ATENCIONES");
+	
+	for(i=0; i<n; i++){
+		printf("\n\nVeterinario con matricula %s tiene %d atenciones\n", matriculas[i], cantidades[i]);
+	}
+	system("pause");
+	fclose(archTurnos);
+	fclose(archVeterinarios);
+}
+
+int cantidadTurnos(FILE *archTurnos, char matricula[50]){
+	
+	rewind(archTurnos);
+	turnos turno;
+	int cant=0;
+	fread(&turno, sizeof(turnos), 1, archTurnos);
+	while(!feof(archTurnos)){
+		
+		if(strcmp(turno.MatriculaVet, matricula) == 0 && turno.turnoAtendido == true){
+			cant++;
+		}
+		
+		fread(&turno, sizeof(turnos), 1, archTurnos);
+	}
+	return cant;
+}
 
 
 void AtencionVeterinario(FILE *archTurnos) //aqui

@@ -56,6 +56,10 @@ main()
 				 	AtencionVeterinario(turnos); //aqui
 			break;
 			
+			case 4: 
+				 	RankingAtenciones(turnos, veterinarios);
+			break;
+			
 			case 5:
 					printf ("\nSaliendo del programa...\n\n");
 			break;
