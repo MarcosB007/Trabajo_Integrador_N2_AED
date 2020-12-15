@@ -79,7 +79,7 @@ int MenuPrincipal(){
 		printf("| 2) --> Registrar Mascotas                               |\n");
 		printf("| 3) --> Registrar Turno                                  |\n");
 		printf("| 4) --> Listado de atencion por veterinario y fecha      |\n");
-		printf("| 5) --> Cerrar modulo                                    |\n");
+		printf("| 5) --> Cerrar aplicacion                                |\n");
 		printf("|_________________________________________________________|\n");
 		printf("\nIngrese la opcion deseada: ");
 		scanf ("%d",&opc);

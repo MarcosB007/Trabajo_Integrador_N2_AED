@@ -35,10 +35,10 @@ void CargarMascotas(FILE *Mascotas){
          printf("\nAnio:");
          scanf("%d", &Dm.f_mascota.anio);
          Dm.edad = 2020 - Dm.f_mascota.anio;
-         
-         
-         system("PAUSE"); 
+          
 	fwrite (&Dm, sizeof (Datosmascota), 1, Mascotas);
+	printf("\n\nLos datos de la mascota fueron cargados con exito.\n\n");
+	system("PAUSE");
 	system("cls");
 	fclose(Mascotas);
 	Mascotas = fopen("Mascotas.dat","a+b");
@@ -108,7 +108,7 @@ void cargaTurnos(FILE *ArchTurnos, FILE *ArchVeterinario, FILE *archMascotas){
 				strcpy(T.detalleAtencion,"\0");
 				fwrite(&T, sizeof(turnos), 1, ArchTurnos);
 				
-				printf("\nEl turno ha sido rservado con exito!");
+				printf("\nEl turno ha sido reservado con exito!");
 				printf("\n====================================");
 				
 				b = true;
@@ -173,13 +173,15 @@ void ListarTurno (FILE *ArchTurnos, FILE *ArchVeterinario){
 			fread (&T,sizeof(turnos), 1, ArchTurnos);
 		}
 		if (bandera == false){
-			printf("\nEsta matricula o fecha no estan registradas.");
+			printf("\nEn esta fecha no se atendieron turnos.");
 			do{
+				system("pause");
+				system("cls");
 				printf("\nIngrese 1 para intentar nuevamente");
 				printf("\nIngrese 0 para salir");
 				printf("\n- ");
 				scanf("%d", &num);
-				system("cls");
+				
 			}while(num != 0 && num != 1);	
 		}
 		

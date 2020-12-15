@@ -74,7 +74,7 @@ int MenuPrincipal(){
 		printf("______________________________________________________\n");
 		printf("| 1).- Iniciar sesion                                 |\n");
 		printf("| 2).- Visualizar Lista de Espera de Turnos           |\n");
-		printf("| 3).- Registrar Evolución de la Mascota              |\n");
+		printf("| 3).- Registrar Evolucion de la Mascota              |\n");
 		printf("| 4).- Cerrar la aplicacion                           |\n");
 		printf("|_____________________________________________________|\n");
 		printf("\nIngrese una opcion: ");

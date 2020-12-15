@@ -134,5 +134,8 @@ void cargarVeterinario(FILE *veterinarios)
 	strcpy(vet.Contrasena, passAux);
 	
 	fwrite(&vet, sizeof(Veterinario), 1, veterinarios);
+	printf("Los datos del veterinario fueron cargados con exito.");
+	printf("\n\n");
+	system("pause");
 	
 }

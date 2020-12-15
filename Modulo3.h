@@ -174,11 +174,15 @@ void InicioSesion(FILE *usuario, int num){
 			do{
 				system ("cls");
 				printf("\nIngrese 1 para volver a intentar.");
-				printf("\nIngrese 0 para salir.");
+				printf("\nIngrese 0 para salir.\n");
 				scanf("%d", &n);
 				
-				if(num == 1)b = false;
-				else b = true;
+				if(n == 1){
+					b = false;
+				}
+				else{
+					b = true;
+				} 
 				
 			}while(n != 1 && n != 0);
 		}
@@ -251,7 +255,6 @@ void registrar(FILE *usuario, int num){
 	
 	user(usuario, nombre);
 	strcpy(lectura.nomUsuario, nombre);
-	printf ("\nUsuario Creado...\n\n");
 	system ("pause");
 	system ("cls");
 	printf("__________________________________________________________________________________________________________________\n");
@@ -274,6 +277,8 @@ void registrar(FILE *usuario, int num){
 	}
 	
 	fwrite(&lectura, sizeof(Usuarios), 1, usuario);
+	printf ("\nUsuario Creado...\n\n");
+	system ("pause");
 	fclose(usuario);
 }
 
